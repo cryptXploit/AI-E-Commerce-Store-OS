@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The AI E-Commerce &amp; Online Store Operating System — Official Flagship Suite</title>
+<style>
+:root {
+  --primary: #0F172A;
+  --slate-card: #1E293B;
+  --amber: #D97706;
+  --amber-hover: #B45309;
+  --amber-light: #F59E0B;
+  --blue: #2563EB;
+  --emerald: #059669;
+  --danger: #DC2626;
+  --text-dark: #0F172A;
+  --text-body: #1E293B;
+  --text-muted: #64748B;
+  --bg-light: #F8FAFC;
+  --white: #FFFFFF;
+  --border: #CBD5E1;
+  --font-display: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-light);
+  color: var(--text-body);
+  line-height: 1.65;
+  font-size: 16px;
+}
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.container { max-width: 1220px; margin: 0 auto; padding: 0 24px; }
+.mono { font-family: var(--font-mono); }
+
+/* Clean Sticky Top Navigation Bar (Strict 2-Button Hierarchy) */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(15, 23, 42, 0.96);
+  backdrop-filter: blur(12px);
+  border-bottom: 2px solid var(--amber);
+  padding: 13px 0;
+  color: var(--white);
+}
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 17px;
+  color: var(--white);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+.brand-badge {
+  background: var(--amber);
+  color: var(--primary);
+  font-family: var(--font-mono);
+  font-weight: 900;
+  padding: 3px 9px;
+  border-radius: 6px;
+  font-size: 11.5px;
+}
+.nav-links { display: flex; gap: 22px; align-items: center; flex-wrap: wrap; }
+.nav-links a.nav-item {
+  color: #CBD5E1;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+.nav-links a.nav-item:hover { color: var(--amber-light); }
+.nav-cta-group { display: flex; gap: 10px; align-items: center; }
+
+/* Smooth Button System */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 24px;
+  border-radius: 10px;
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: 15px;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  text-align: center;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+.btn-sm { padding: 8px 16px; font-size: 13.5px; border-radius: 999px; }
+.btn-amber {
+  background: var(--amber);
+  color: var(--white);
+  box-shadow: 0 6px 20px rgba(217, 119, 6, 0.35);
+}
+.btn-amber:hover { background: var(--amber-hover); box-shadow: 0 10px 26px rgba(217, 119, 6, 0.45); }
+.btn-emerald {
+  background: var(--emerald);
+  color: var(--white);
+  box-shadow: 0 6px 20px rgba(5, 150, 105, 0.32);
+}
+.btn-emerald:hover { background: #047857; }
+.btn-blue {
+  background: var(--blue);
+  color: var(--white);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.32);
+}
+.btn-blue:hover { background: #1D4ED8; }
+.btn-outline-light {
+  background: rgba(30, 41, 59, 0.75);
+  color: var(--white);
+  border: 1.5px solid #475569;
+}
+.btn-outline-light:hover { border-color: var(--amber-light); background: #1E293B; }
+.btn-outline-dark {
+  background: var(--white);
+  color: var(--primary);
+  border: 1.5px solid var(--border);
+}
+.btn-outline-dark:hover { border-color: var(--blue); color: var(--blue); }
+
+/* Hero Section with Clean 2-Button Hierarchy & Purpose Micro-Captions */
+.hero {
+  background: radial-gradient(circle at 80% 20%, #1E293B 0%, #0F172A 70%);
+  color: var(--white);
+  padding: 68px 0 76px;
+  border-bottom: 4px solid var(--amber);
+}
+.hero-ribbon {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(217, 119, 6, 0.16);
+  border: 1px solid var(--amber);
+  color: var(--amber-light);
+  font-family: var(--font-mono);
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  margin-bottom: 20px;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.18fr 0.82fr;
+  gap: 44px;
+  align-items: center;
+}
+.hero h1 {
+  font-size: 44px;
+  line-height: 1.15;
+  font-weight: 900;
+  margin-bottom: 18px;
+}
+.hero h1 span { color: var(--amber-light); }
+.hero-sub {
+  font-size: 17.5px;
+  color: #CBD5E1;
+  margin-bottom: 28px;
+  font-weight: 400;
+  max-width: 650px;
+}
+.hero-cta-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.cta-col {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.cta-caption {
+  font-size: 12px;
+  color: #94A3B8;
+  line-height: 1.45;
+  padding-left: 4px;
+}
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 12px;
+}
+.stat-box {
+  background: rgba(30, 41, 59, 0.85);
+  border: 1px solid #334155;
+  border-left: 4px solid var(--emerald);
+  padding: 12px 14px;
+  border-radius: 10px;
+}
+.stat-box .val {
+  font-family: var(--font-mono);
+  font-size: 21px;
+  font-weight: 900;
+  color: var(--white);
+}
+.stat-box .lbl {
+  font-size: 12px;
+  color: #94A3B8;
+  font-weight: 600;
+}
+
+/* 3-Card Interactive Product Tour Bar Below Hero */
+.tour-section {
+  margin-top: -36px;
+  padding-bottom: 36px;
+  position: relative;
+  z-index: 20;
+}
+.tour-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.tour-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-top: 4px solid var(--blue);
+  border-radius: 14px;
+  padding: 22px;
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.tour-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 44px rgba(15, 23, 42, 0.13);
+}
+.tour-card.card-amber { border-top-color: var(--amber); }
+.tour-card.card-emerald { border-top-color: var(--emerald); }
+.tool-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: 6px;
+  background: #DBEAFE;
+  color: var(--blue);
+  margin-bottom: 10px;
+}
+.card-amber .tool-badge { background: #FEF3C7; color: #92400E; }
+.card-emerald .tool-badge { background: #D1FAE5; color: #065F46; }
+.tour-card h3 { font-size: 18px; font-weight: 800; color: var(--primary); margin-bottom: 8px; }
+.tour-card p { font-size: 13.5px; color: var(--text-muted); margin-bottom: 16px; }
+
+/* Section Layout */
+section { padding: 68px 0; }
+.section-header {
+  text-align: center;
+  max-width: 820px;
+  margin: 0 auto 44px;
+}
+.section-tag {
+  display: inline-block;
+  background: #DBEAFE;
+  color: var(--blue);
+  font-family: var(--font-mono);
+  font-weight: 800;
+  font-size: 11.5px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  letter-spacing: 0.8px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+.section-header h2 {
+  font-size: 34px;
+  font-weight: 900;
+  color: var(--primary);
+  margin-bottom: 12px;
+}
+.section-header p {
+  font-size: 17px;
+  color: var(--text-muted);
+}
+
+/* Section A: Interactive 5-Tab AI Mindmap & Decision Tree Viewer */
+.mindmap-shell {
+  background: var(--primary);
+  color: var(--white);
+  border: 2px solid #334155;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 24px 54px rgba(15, 23, 42, 0.16);
+}
+.mindmap-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  background: #090D16;
+  border-bottom: 2px solid #334155;
+  padding: 8px 12px 0;
+  gap: 6px;
+}
+.mm-tab-btn {
+  background: #1E293B;
+  color: #94A3B8;
+  border: 1px solid #334155;
+  border-bottom: none;
+  padding: 11px 16px;
+  border-radius: 10px 10px 0 0;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.mm-tab-btn:hover { color: var(--white); background: #334155; }
+.mm-tab-btn.active {
+  background: var(--amber);
+  color: var(--white);
+  border-color: var(--amber);
+}
+.mindmap-toolbar {
+  background: #1E293B;
+  padding: 12px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  border-bottom: 1px solid #334155;
+}
+.mindmap-stage {
+  padding: 24px;
+  background: radial-gradient(circle at center, #1E293B 0%, #0F172A 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.mm-pane { display: none; width: 100%; }
+.mm-pane.active { display: block; }
+.mm-svg-box {
+  background: #090D16;
+  border: 1.5px solid #334155;
+  border-radius: 12px;
+  padding: 14px;
+  overflow-x: auto;
+}
+.mm-svg-box svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 440px;
+}
+.mm-caption-bar {
+  margin-top: 14px;
+  background: rgba(30, 41, 59, 0.85);
+  border-left: 4px solid var(--emerald);
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  color: #E2E8F0;
+}
+
+/* Section B: 4 Empirical E-Commerce Market Statistics & Benchmark Charts */
+.charts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.chart-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.chart-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.09);
+}
+.chart-source {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--blue);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.chart-card h3 {
+  font-size: 18.5px;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 6px;
+}
+.chart-card p.chart-sub {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+.chart-takeaway {
+  margin-top: 14px;
+  background: #F8FAFC;
+  border-left: 3.5px solid var(--emerald);
+  padding: 10px 12px;
+  font-size: 12.5px;
+  color: var(--text-body);
+  border-radius: 0 8px 8px 0;
+}
+
+/* Interactive Live Simulator Section */
+.sim-card {
+  background: var(--white);
+  border: 2px solid var(--primary);
+  border-radius: 18px;
+  box-shadow: 0 20px 44px rgba(15, 23, 42, 0.08);
+  overflow: hidden;
+}
+.sim-header {
+  background: var(--primary);
+  color: var(--white);
+  padding: 20px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  border-bottom: 3px solid var(--amber);
+}
+.sim-body {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 32px;
+  padding: 32px;
+}
+.slider-group { margin-bottom: 18px; }
+.slider-label {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: var(--primary);
+}
+.slider-label span.val {
+  color: var(--blue);
+  font-weight: 900;
+}
+input[type="range"] {
+  width: 100%;
+  accent-color: var(--amber);
+  cursor: pointer;
+}
+.sim-results-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.sim-kpi {
+  background: #F8FAFC;
+  border: 1px solid var(--border);
+  border-left: 5px solid var(--blue);
+  padding: 16px;
+  border-radius: 10px;
+}
+.sim-kpi.highlight {
+  background: #ECFDF5;
+  border-color: #6EE7B7;
+  border-left-color: var(--emerald);
+  grid-column: span 2;
+}
+.sim-kpi .k-lbl {
+  font-size: 11.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.sim-kpi .k-val {
+  font-size: 27px;
+  font-weight: 900;
+  color: var(--primary);
+  margin-top: 4px;
+}
+.sim-kpi.highlight .k-val { color: var(--emerald); font-size: 32px; }
+
+/* 5-Tier Pricing Grid */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+  align-items: stretch;
+}
+.tier-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.tier-card:hover { transform: translateY(-4px); box-shadow: 0 18px 36px rgba(15, 23, 42, 0.09); }
+.tier-card.featured {
+  background: var(--primary);
+  color: var(--white);
+  border: 3px solid var(--amber);
+  box-shadow: 0 22px 45px rgba(15, 23, 42, 0.22);
+}
+.tier-badge {
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--amber);
+  color: var(--primary);
+  font-weight: 900;
+  font-size: 11px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.tier-name {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--blue);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.tier-card.featured .tier-name { color: var(--amber-light); }
+.tier-title { font-size: 19px; font-weight: 900; margin-bottom: 10px; }
+.tier-price { font-size: 34px; font-weight: 900; margin-bottom: 4px; }
+.tier-price span { font-size: 14px; font-weight: 600; color: var(--text-muted); }
+.tier-card.featured .tier-price span { color: #94A3B8; }
+.tier-list {
+  list-style: none;
+  margin: 16px 0 22px;
+  font-size: 13.5px;
+}
+.tier-list li {
+  margin-bottom: 9px;
+  padding-left: 20px;
+  position: relative;
+}
+.tier-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--emerald);
+  font-weight: 900;
+}
+.tier-card.featured .tier-list li::before { color: var(--amber-light); }
+
+/* Curriculum Grid */
+.chapter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 20px;
+}
+.chapter-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-top: 4px solid var(--primary);
+  border-radius: 12px;
+  padding: 22px;
+  transition: all 0.2s ease;
+}
+.chapter-card:hover { transform: translateY(-2px); box-shadow: 0 12px 26px rgba(15, 23, 42, 0.06); }
+.chapter-card .ch-num {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 900;
+  color: var(--amber);
+}
+.chapter-card h3 {
+  font-size: 17.5px;
+  font-weight: 800;
+  color: var(--primary);
+  margin: 6px 0 10px;
+}
+.chapter-card p { font-size: 13.5px; color: var(--text-muted); margin-bottom: 10px; }
+.chapter-meta {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--emerald);
+  background: #ECFDF5;
+  padding: 6px 10px;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+/* Modals (4-Step Reading Roadmap Modal + Fullscreen SVG Lightbox) */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.82);
+  backdrop-filter: blur(6px);
+  z-index: 9500;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.open { display: flex; }
+.modal-box {
+  background: var(--white);
+  color: var(--text-body);
+  border: 2px solid var(--amber);
+  border-radius: 18px;
+  max-width: 780px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 28px 32px;
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.5);
+}
+.roadmap-step-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 18px 0;
+}
+.rm-step {
+  background: #F8FAFC;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--amber);
+  border-radius: 10px;
+  padding: 14px;
+}
+.rm-step h4 { font-size: 15px; color: var(--primary); margin: 4px 0 6px; }
+.rm-step p { font-size: 12.5px; color: var(--text-muted); }
+
+footer {
+  background: var(--primary);
+  color: #94A3B8;
+  padding: 48px 0;
+  border-top: 4px solid var(--amber);
+  font-size: 13.5px;
+}
+
+@media (max-width: 920px) {
+  .hero-grid, .sim-body, .charts-grid, .tour-grid, .hero-cta-pair, .roadmap-step-list { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 33px; }
+  .hero-stats { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- Top Navigation Bar (Strict 2-Button Hierarchy) -->
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a href="#" class="brand-logo">
+      <span class="brand-badge">STORE OS v4.0</span>
+      <span>AI E-Commerce Operating System</span>
+    </a>
+    <div class="nav-links">
+      <a href="#visual-architecture" class="nav-item">Visual Architecture</a>
+      <a href="#market-benchmarks" class="nav-item">Market Data</a>
+      <a href="#live-simulator" class="nav-item">Live Simulator</a>
+      <a href="#pricing-tiers" class="nav-item">5 Tiers</a>
+      <div class="nav-cta-group">
+        <a href="./app.html" class="btn btn-sm btn-outline-light">Launch Web App</a>
+        <a href="./assets/Tier0-Free-Store-Margin-and-Cart-Audit-Kit.zip" download onclick="openReadingRoadmapModal()" class="btn btn-sm btn-amber">Get Free Audit Kit</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section (Clean 2-Button Hierarchy + Purpose Sub-Labels) -->
+<header class="hero">
+  <div class="container">
+    <div class="hero-ribbon">FLAGSHIP RELEASE • 259-PAGE MANUAL + OFFLINE WEB APP + 8-TAB EXCEL + 5-DB NOTION OS</div>
+    <div class="hero-grid">
+      <div>
+        <h1>Stop Scaling Top-Line Revenue While <span>Bleeding Net Profit</span>.</h1>
+        <p class="hero-sub">
+          Install the complete, self-hosted <strong>5-Stage Store Profit Engine</strong>. Validate 65%+ margin SKUs, build <code>B.U.Y.E.R.</code> 3-tier bundle pages, recover 15%–22% of abandoned carts without sitewide discount codes, deflect 70%+ of repetitive support tickets with 24/7 AI, and run your store in 20 minutes every Friday.
+        </p>
+
+        <div class="hero-cta-pair">
+          <div class="cta-col">
+            <a href="./assets/Tier0-Free-Store-Margin-and-Cart-Audit-Kit.zip" download onclick="openReadingRoadmapModal()" class="btn btn-amber">⬇ Download Free Starter Kit (.ZIP)</a>
+            <span class="cta-caption">Includes 34-Page Chapter 1 PDF, Fillable Audit Workbook &amp; 4-Step Visual Reading Guide (1.5 MB)</span>
+          </div>
+          <div class="cta-col">
+            <a href="./app.html" class="btn btn-outline-light">Open Live Calculator &amp; Web App →</a>
+            <span class="cta-caption">Runs instantly in your browser — test your SKU margins &amp; 50+ AI prompts (100% offline-ready)</span>
+          </div>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat-box">
+            <div class="val">109,878</div>
+            <div class="lbl">Words Across 10 Chapters</div>
+          </div>
+          <div class="stat-box">
+            <div class="val">50 + 12</div>
+            <div class="lbl">AI Prompts &amp; Crisis Scripts</div>
+          </div>
+          <div class="stat-box">
+            <div class="val">5 Modules</div>
+            <div class="lbl">Offline HTML5 Web App</div>
+          </div>
+          <div class="stat-box">
+            <div class="val">8-Tab XLSX</div>
+            <div class="lbl">Excel + 5-DB Notion Kit</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Hero Visual Mockup Card -->
+      <div style="background:#1E293B; border:2px solid #D97706; border-radius:16px; padding:22px; box-shadow:0 25px 50px rgba(0,0,0,0.45);">
+        <div style="text-align:center; margin-bottom:14px;">
+          <img src="./assets/ebook-cover-gumroad-3d-mockup.png" alt="The AI E-Commerce &amp; Online Store Operating System 3D Suite" style="width:100%; max-width:420px; height:auto; border-radius:10px; border:1px solid #334155;"/>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; background:#0F172A; padding:12px 14px; border-radius:10px; border:1px solid #334155;">
+          <div>
+            <div class="mono" style="font-size:11px; color:#FBBF24; font-weight:800;">NEW: 4-STEP QUICK-START GUIDE</div>
+            <div style="font-size:12.5px; color:#E2E8F0; font-weight:600;">Not sure where to start after downloading?</div>
+          </div>
+          <button type="button" class="btn btn-sm btn-emerald" onclick="openReadingRoadmapModal()">View 4-Step Guide</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- 3-Card Interactive Product Tour & Live Tools Grid -->
+<div class="container tour-section">
+  <div class="tour-grid">
+    <div class="tour-card">
+      <div>
+        <span class="tool-badge">TOOL 01 • INTERACTIVE WEB APP</span>
+        <h3>SaaS-Lite Store Command App</h3>
+        <p>Model your SKU Break-Even ROAS, simulate 3-tier volume bundles &amp; 4-touch cart recovery, forecast R.O.P. inventory, and customize all 62 AI prompts &amp; scripts in your browser.</p>
+      </div>
+      <a href="./app.html" class="btn btn-blue" style="width:100%;">Launch Live Web App →</a>
+    </div>
+
+    <div class="tour-card card-amber">
+      <div>
+        <span class="tool-badge">TOOL 02 • CREATIVE &amp; COVER STUDIO</span>
+        <h3>Brand, Cover &amp; Ad Customizer Studio</h3>
+        <p>Customize book covers, 1080×1080 paid ad bundle cards, 9:16 story hooks, and 1920×1080 hero banners with 6 color themes, live copy swipes, and 1-click PNG/SVG export.</p>
+      </div>
+      <a href="./studio.html" class="btn btn-amber" style="width:100%;">Launch Design Studio →</a>
+    </div>
+
+    <div class="tour-card card-emerald">
+      <div>
+        <span class="tool-badge">TOOL 03 • CHAPTER 1 + READING GUIDE</span>
+        <h3>34-Page Sample &amp; 4-Step Roadmap</h3>
+        <p>Read the complete Chapter 1 PDF (including the LuminaHome $42k/mo turnaround case study), open the fillable 6-page audit workbook, or follow the 30-minute reading roadmap.</p>
+      </div>
+      <div style="display:flex; gap:8px;">
+        <a href="./assets/tier0-free-sample-chapter01-and-audit.pdf" target="_blank" class="btn btn-emerald" style="flex:1; padding:11px 12px; font-size:13.5px;">Read Chapter 1 PDF</a>
+        <button type="button" onclick="openReadingRoadmapModal()" class="btn btn-outline-dark" style="padding:11px 12px; font-size:13.5px;">4-Step Guide</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION A: Interactive 5-Tab AI Architecture Mindmap & Decision Tree Viewer -->
+<section id="visual-architecture" style="padding-top:36px;">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">INSIDE THE VISUAL BRAIN • 20 VECTOR DIAGRAMS + 12-PAGE ATLAS</div>
+      <h2>Interactive AI System Mindmaps &amp; Decision Trees</h2>
+      <p>Click through the 5 core operating diagrams below to inspect how the Store OS connects product validation, PDP conversion, cart recovery, AI customer support, and Friday CEO governance.</p>
+    </div>
+
+    <div class="mindmap-shell">
+      <div class="mindmap-tabs">
+        <button type="button" class="mm-tab-btn active" id="mmTabBtn0" onclick="switchMindmapTab(0)">1. 5-Stage Profit Engine Map</button>
+        <button type="button" class="mm-tab-btn" id="mmTabBtn1" onclick="switchMindmapTab(1)">2. Unit-Economics Decision Tree</button>
+        <button type="button" class="mm-tab-btn" id="mmTabBtn2" onclick="switchMindmapTab(2)">3. B.U.Y.E.R. PDP &amp; Bundle Architecture</button>
+        <button type="button" class="mm-tab-btn" id="mmTabBtn3" onclick="switchMindmapTab(3)">4. 4-Touch Cart Recovery Flow</button>
+        <button type="button" class="mm-tab-btn" id="mmTabBtn4" onclick="switchMindmapTab(4)">5. S.A.V.E. 24/7 AI Support Engine</button>
+      </div>
+
+      <div class="mindmap-toolbar">
+        <div>
+          <span class="mono" style="font-size:12px; color:#FBBF24; font-weight:800;" id="mmActiveTitle">DIAGRAM 01: THE 5-STAGE STORE PROFIT ENGINE MASTER ARCHITECTURE</span>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button type="button" class="btn btn-sm btn-outline-light" onclick="openMindmapFullscreen()">🔍 Zoom Fullscreen</button>
+          <button type="button" class="btn btn-sm btn-blue" onclick="downloadActiveMindmapSVG()">⬇ Download Diagram (.SVG)</button>
+          <a href="./assets/00-ECOSYSTEM-MASTER-MAP-POSTER.png" download class="btn btn-sm btn-emerald">⬇ Download Sample Cheat Sheet Poster (.PNG)</a>
+        </div>
+      </div>
+
+      <div class="mindmap-stage">
+        <!-- Tab 0: 5-Stage Store Profit Engine Master Map -->
+        <div class="mm-pane active" id="mmPane0">
+          <div class="mm-svg-box" id="mmSvgBox0">
+            <svg viewBox="0 0 1100 360" xmlns="http://www.w3.org/2000/svg">
+              <rect width="1100" height="360" rx="12" fill="#090D16"/>
+              <text x="550" y="34" text-anchor="middle" fill="#FBBF24" font-family="Consolas, monospace" font-size="14" font-weight="900">THE 5-STAGE AI E-COMMERCE &amp; ONLINE STORE PROFIT ENGINE (CLOSED-LOOP ARCHITECTURE)</text>
+              <!-- Central Spine -->
+              <line x1="120" y1="165" x2="980" y2="165" stroke="#D97706" stroke-width="4" stroke-dasharray="8 5"/>
+              <!-- Stage 1 -->
+              <rect x="24" y="75" width="190" height="180" rx="12" fill="#1E293B" stroke="#D97706" stroke-width="2.5"/>
+              <rect x="38" y="90" width="162" height="26" rx="6" fill="#D97706"/>
+              <text x="119" y="108" text-anchor="middle" fill="#0F172A" font-family="Consolas, monospace" font-size="11.5" font-weight="900">STAGE 01 (CH 1-2)</text>
+              <text x="119" y="138" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="14" font-weight="900">VALIDATE &amp; SOURCE</text>
+              <text x="119" y="164" text-anchor="middle" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="11.5">• Pre-Ad Margin &gt;= 60%</text>
+              <text x="119" y="184" text-anchor="middle" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="11.5">• AI Review Mining</text>
+              <text x="119" y="204" text-anchor="middle" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="11.5">• V2 Spec Upgrade</text>
+              <text x="119" y="232" text-anchor="middle" fill="#34D399" font-family="Consolas, monospace" font-size="11" font-weight="700">BE-ROAS &lt;= 1.65x</text>
+
+              <!-- Stage 2 -->
+              <rect x="240" y="75" width="190" height="180" rx="12" fill="#1E293B" stroke="#2563EB" stroke-width="2.5"/>
+              <rect x="254" y="90" width="162" height="26" rx="6" fill="#2563EB"/>
+              <text x="335" y="108" text-anchor="middle" fill="#FFFFFF" font-family="Consolas, monospace" font-size="11.5" font-weight="900">STAGE 02 (CH 3-4)</text>
+              <text x="335" y="138" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="14" font-weight="900">CONVERT &amp; BUNDLE</text>
+              <text x="335" y="164" text-anchor="middle" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="11.5">• B.U.Y.E.R. PDP Stack</text>
+              <text x="335" y="184" text-anchor="middle" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="11.5">• 1x / 2x / 3x Bundles</text>
+              <text x="335" y="204" text-anchor="middle" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="11.5">• 3x3x3 UGC Ad Matrix</text>
+              <text x="335" y="232" text-anchor="middle" fill="#60A5FA" font-family="Consolas, monospace" font-size="11" font-weight="700">+32% Blended AOV</text>
+
+              <!-- Stage 3 -->
+              <rect x="455" y="75" width="190" height="180" rx="12" fill="#1E293B" stroke="#D97706" stroke-width="2.5"/>
+              <rect x="469" y="90" width="162" height="26" rx="6" fill="#D97706"/>
+              <text x="550" y="108" text-anchor="middle" fill="#0F172A" font-family="Consolas, monospace" font-size="11.5" font-weight="900">STAGE 03 (CH 5-6)</text>
+              <text x="550" y="138" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="14" font-weight="900">RECOVER &amp; UPSELL</text>
+              <text x="550" y="164" text-anchor="middle" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="11.5">• 1-Page Checkout Shield</text>
+              <text x="550" y="184" text-anchor="middle" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="11.5">• 4-Touch Cart Recovery</text>
+              <text x="550" y="204" text-anchor="middle" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="11.5">• 5 Lifecycle Email Flows</text>
+              <text x="550" y="232" text-anchor="middle" fill="#FBBF24" font-family="Consolas, monospace" font-size="11" font-weight="700">15%-22% Carts Saved</text>
+
+              <!-- Stage 4 -->
+              <rect x="670" y="75" width="190" height="180" rx="12" fill="#1E293B" stroke="#059669" stroke-width="2.5"/>
+              <rect x="684" y="90" width="162" height="26" rx="6" fill="#059669"/>
+              <text x="765" y="108" text-anchor="middle" fill="#FFFFFF" font-family="Consolas, monospace" font-size="11.5" font-weight="900">STAGE 04 (CH 7-8)</text>
+              <text x="765" y="138" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="14" font-weight="900">SUPPORT &amp; RETAIN</text>
+              <text x="765" y="164" text-anchor="middle" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="11.5">• S.A.V.E. 24/7 AI Triage</text>
+              <text x="765" y="184" text-anchor="middle" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="11.5">• 115% Bonus Credit Loop</text>
+              <text x="765" y="204" text-anchor="middle" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="11.5">• Delivery+7d UGC Engine</text>
+              <text x="765" y="232" text-anchor="middle" fill="#34D399" font-family="Consolas, monospace" font-size="11" font-weight="700">70%+ Ticket Deflection</text>
+
+              <!-- Stage 5 -->
+              <rect x="885" y="75" width="190" height="180" rx="12" fill="#1E293B" stroke="#2563EB" stroke-width="2.5"/>
+              <rect x="899" y="90" width="162" height="26" rx="6" fill="#2563EB"/>
+              <text x="980" y="108" text-anchor="middle" fill="#FFFFFF" font-family="Consolas, monospace" font-size="11.5" font-weight="900">STAGE 05 (CH 9-10)</text>
+              <text x="980" y="138" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="14" font-weight="900">INVENTORY &amp; CEO</text>
+              <text x="980" y="164" text-anchor="middle" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="11.5">• R.O.P. Stockout Shield</text>
+              <text x="980" y="184" text-anchor="middle" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="11.5">• ABC Cashflow Matrix</text>
+              <text x="980" y="204" text-anchor="middle" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="11.5">• 20m Friday CEO Review</text>
+              <text x="980" y="232" text-anchor="middle" fill="#60A5FA" font-family="Consolas, monospace" font-size="11" font-weight="700">45% Profit Reserve Sweep</text>
+
+              <!-- Bottom Feedback Loop Bar -->
+              <rect x="60" y="285" width="980" height="48" rx="10" fill="#0F172A" stroke="#059669" stroke-width="2"/>
+              <text x="550" y="314" text-anchor="middle" fill="#34D399" font-family="Consolas, monospace" font-size="12.5" font-weight="800">CLOSED-LOOP FEEDBACK: REPEAT LTV + INVENTORY PROTECTION FUNDS NEXT WEEK'S 3x3x3 AD SCALING</text>
+            </svg>
+          </div>
+          <div class="mm-caption-bar">
+            <strong>Architectural Takeaway:</strong> Every stage feeds the next. You never scale paid ad traffic (Stage 2) on a SKU that fails the 60% Pre-Ad Margin gate (Stage 1) or lacks a 4-Touch Cart Recovery net (Stage 3) and R.O.P. Inventory Shield (Stage 5).
+          </div>
+        </div>
+
+        <!-- Tab 1: SKU Unit-Economics & Funnel Leak Decision Tree -->
+        <div class="mm-pane" id="mmPane1">
+          <div class="mm-svg-box" id="mmSvgBox1">
+            <svg viewBox="0 0 1100 360" xmlns="http://www.w3.org/2000/svg">
+              <rect width="1100" height="360" rx="12" fill="#090D16"/>
+              <text x="550" y="34" text-anchor="middle" fill="#60A5FA" font-family="Consolas, monospace" font-size="14" font-weight="900">CHAPTER 1 &amp; 10: 4-GATE UNIT-ECONOMICS &amp; FUNNEL LEAK DIAGNOSTIC DECISION TREE</text>
+              <!-- Gate 1 -->
+              <rect x="40" y="70" width="220" height="120" rx="10" fill="#1E293B" stroke="#D97706" stroke-width="2.5"/>
+              <text x="150" y="98" text-anchor="middle" fill="#FBBF24" font-family="Consolas, monospace" font-size="12" font-weight="900">GATE 01: PRE-AD MARGIN</text>
+              <text x="150" y="125" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="13.5" font-weight="800">Is Pre-Ad Margin &gt;= 60%?</text>
+              <text x="150" y="150" text-anchor="middle" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="11.5">(BE-ROAS &lt;= 1.67x)</text>
+              <rect x="40" y="220" width="220" height="95" rx="8" fill="#2A1212" stroke="#DC2626" stroke-width="2"/>
+              <text x="150" y="246" text-anchor="middle" fill="#FCA5A5" font-family="Consolas, monospace" font-size="11" font-weight="900">IF NO (&lt; 60%):</text>
+              <text x="150" y="268" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="11.5">Kill sitewide discount codes &amp;</text>
+              <text x="150" y="286" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="11.5">install 2x/3x Bundle on PDP.</text>
+
+              <!-- Gate 2 -->
+              <rect x="305" y="70" width="220" height="120" rx="10" fill="#1E293B" stroke="#2563EB" stroke-width="2.5"/>
+              <text x="415" y="98" text-anchor="middle" fill="#60A5FA" font-family="Consolas, monospace" font-size="12" font-weight="900">GATE 02: PDP ADD-TO-CART</text>
+              <text x="415" y="125" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="13.5" font-weight="800">Is PDP ATC Rate &gt;= 7.5%?</text>
+              <text x="415" y="150" text-anchor="middle" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="11.5">(Traffic-to-Basket Check)</text>
+              <rect x="305" y="220" width="220" height="95" rx="8" fill="#2A1212" stroke="#DC2626" stroke-width="2"/>
+              <text x="415" y="246" text-anchor="middle" fill="#FCA5A5" font-family="Consolas, monospace" font-size="11" font-weight="900">IF NO (&lt; 7.5%):</text>
+              <text x="415" y="268" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="11.5">Deploy B.U.Y.E.R. Above-Fold</text>
+              <text x="415" y="286" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="11.5">Stack + Risk-Reversal Badge.</text>
+
+              <!-- Gate 3 -->
+              <rect x="570" y="70" width="220" height="120" rx="10" fill="#1E293B" stroke="#D97706" stroke-width="2.5"/>
+              <text x="680" y="98" text-anchor="middle" fill="#FBBF24" font-family="Consolas, monospace" font-size="12" font-weight="900">GATE 03: CHECKOUT COMPLETION</text>
+              <text x="680" y="125" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="13.5" font-weight="800">Is Cart-to-Order &gt;= 42%?</text>
+              <text x="680" y="150" text-anchor="middle" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="11.5">(Checkout Friction Check)</text>
+              <rect x="570" y="220" width="220" height="95" rx="8" fill="#2A1212" stroke="#DC2626" stroke-width="2"/>
+              <text x="680" y="246" text-anchor="middle" fill="#FCA5A5" font-family="Consolas, monospace" font-size="11" font-weight="900">IF NO (&lt; 42%):</text>
+              <text x="680" y="268" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="11.5">Enable Guest Express Wallets</text>
+              <text x="680" y="286" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="11.5">&amp; 4-Touch Recovery Sequence.</text>
+
+              <!-- Gate 4 -->
+              <rect x="835" y="70" width="225" height="245" rx="12" fill="#06281E" stroke="#059669" stroke-width="3"/>
+              <text x="947" y="102" text-anchor="middle" fill="#34D399" font-family="Consolas, monospace" font-size="12.5" font-weight="900">GATE 04: GREEN-LIGHT SCALE</text>
+              <text x="947" y="134" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="14" font-weight="900">ALL GATES PASSED!</text>
+              <text x="947" y="166" text-anchor="middle" fill="#D1FAE5" font-family="Arial, sans-serif" font-size="12">• 14d MER &gt;= BE-ROAS + 0.45x</text>
+              <text x="947" y="190" text-anchor="middle" fill="#D1FAE5" font-family="Arial, sans-serif" font-size="12">• Hero SKU DIR &gt;= Lead + 21d</text>
+              <text x="947" y="214" text-anchor="middle" fill="#D1FAE5" font-family="Arial, sans-serif" font-size="12">• Scale Ad Spend +15%-20%</text>
+              <text x="947" y="238" text-anchor="middle" fill="#D1FAE5" font-family="Arial, sans-serif" font-size="12">• Sweep 45% Net Profit</text>
+            </svg>
+          </div>
+          <div class="mm-caption-bar">
+            <strong>Diagnostic Takeaway:</strong> Never guess why profit is down. Follow the 4 Gates from left to right to isolate whether your bottleneck is Unit Economics (Gate 1), PDP Offer (Gate 2), Checkout Friction (Gate 3), or Ad Creative (Gate 4).
+          </div>
+        </div>
+
+        <!-- Tab 2: B.U.Y.E.R. PDP & 3-Tier Bundle Blueprint -->
+        <div class="mm-pane" id="mmPane2">
+          <div class="mm-svg-box" id="mmSvgBox2">
+            <svg viewBox="0 0 1100 360" xmlns="http://www.w3.org/2000/svg">
+              <rect width="1100" height="360" rx="12" fill="#090D16"/>
+              <text x="550" y="34" text-anchor="middle" fill="#FBBF24" font-family="Consolas, monospace" font-size="14" font-weight="900">CHAPTER 3: THE B.U.Y.E.R. HIGH-CONVERTING PDP &amp; 1x / 2x / 3x VOLUME BUNDLE BLUEPRINT</text>
+              <rect x="35" y="65" width="480" height="260" rx="12" fill="#1E293B" stroke="#2563EB" stroke-width="2.5"/>
+              <text x="275" y="95" text-anchor="middle" fill="#60A5FA" font-family="Consolas, monospace" font-size="13" font-weight="900">LEFT: THE 5-BLOCK B.U.Y.E.R. PAGE STACK</text>
+              <text x="60" y="130" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="13" font-weight="700">B — Benefit-Driven Above-the-Fold Stack (&lt;3s Clarity)</text>
+              <text x="60" y="162" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="13" font-weight="700">U — Unfair Spec Comparison Matrix (Us vs. Generic)</text>
+              <text x="60" y="194" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="13" font-weight="700">Y — Yield-Maximizing 1x / 2x / 3x Bundle Selector</text>
+              <text x="60" y="226" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="13" font-weight="700">E — Evidence &amp; Verified Outcome Social Proof Wall</text>
+              <text x="60" y="258" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="13" font-weight="700">R — Risk-Reversal Guarantee &amp; Top-5 Objection FAQ</text>
+              <text x="60" y="296" fill="#34D399" font-family="Consolas, monospace" font-size="12" font-weight="800">RESULT: +38% PDP Conversion Lift &amp; -34% Bounce Rate</text>
+
+              <rect x="555" y="65" width="510" height="260" rx="12" fill="#1E293B" stroke="#059669" stroke-width="2.5"/>
+              <text x="810" y="95" text-anchor="middle" fill="#34D399" font-family="Consolas, monospace" font-size="13" font-weight="900">RIGHT: 3-TIER VOLUME BUNDLE ECONOMICS</text>
+              <rect x="580" y="114" width="460" height="52" rx="8" fill="#0F172A" stroke="#64748B"/>
+              <text x="600" y="145" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="12.5" font-weight="700">TIER 1 (1x Anchor): $48 AOV + $6.95 Ship  --&gt;  $21.20 Pre-Ad Margin</text>
+              <rect x="580" y="178" width="460" height="60" rx="8" fill="#06281E" stroke="#D97706" stroke-width="2.5"/>
+              <text x="600" y="203" fill="#FBBF24" font-family="Consolas, monospace" font-size="11" font-weight="900">★ MOST POPULAR PRE-SELECTED DEFAULT (44% OF ORDERS)</text>
+              <text x="600" y="224" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="13" font-weight="800">TIER 2 (2x Bundle @ 15% Off + Free Ship): $82 AOV --&gt; $45.40 Margin</text>
+              <rect x="580" y="250" width="460" height="52" rx="8" fill="#0F172A" stroke="#059669" stroke-width="2"/>
+              <text x="600" y="281" fill="#34D399" font-family="Arial, sans-serif" font-size="12.5" font-weight="800">TIER 3 (3x VIP Pack @ 25% Off + Free Gift): $108 AOV --&gt; $60.90 Margin</text>
+            </svg>
+          </div>
+          <div class="mm-caption-bar">
+            <strong>Bundle Economics Takeaway:</strong> Shipping two units in one box costs almost the same 3PL pick/pack &amp; postage as shipping one unit—so every 2-Pack and 3-Pack order nearly doubles your dollar contribution margin!
+          </div>
+        </div>
+
+        <!-- Tab 3: 4-Touch Objection-Slayer Cart Recovery Flow -->
+        <div class="mm-pane" id="mmPane3">
+          <div class="mm-svg-box" id="mmSvgBox3">
+            <svg viewBox="0 0 1100 360" xmlns="http://www.w3.org/2000/svg">
+              <rect width="1100" height="360" rx="12" fill="#090D16"/>
+              <text x="550" y="34" text-anchor="middle" fill="#FBBF24" font-family="Consolas, monospace" font-size="14" font-weight="900">CHAPTER 5: THE 4-TOUCH OBJECTION-SLAYER ABANDONED CART RECOVERY TIMELINE (72 HOURS)</text>
+              <rect x="30" y="75" width="240" height="220" rx="12" fill="#1E293B" stroke="#059669" stroke-width="2.5"/>
+              <text x="150" y="105" text-anchor="middle" fill="#34D399" font-family="Consolas, monospace" font-size="12" font-weight="900">TOUCH 01 (+45 MINUTES)</text>
+              <text x="150" y="132" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="14" font-weight="900">Concierge Support Check</text>
+              <text x="150" y="162" text-anchor="middle" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="12">• Plain-text helpful note</text>
+              <text x="150" y="184" text-anchor="middle" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="12">• Deep-link cart restore URL</text>
+              <text x="150" y="216" text-anchor="middle" fill="#34D399" font-family="Consolas, monospace" font-size="12" font-weight="900">DISCOUNT: 0% (Full Margin!)</text>
+              <text x="150" y="246" text-anchor="middle" fill="#FBBF24" font-family="Consolas, monospace" font-size="11.5">Recovers ~6.8% of Carts</text>
+
+              <rect x="295" y="75" width="240" height="220" rx="12" fill="#1E293B" stroke="#059669" stroke-width="2.5"/>
+              <text x="415" y="105" text-anchor="middle" fill="#34D399" font-family="Consolas, monospace" font-size="12" font-weight="900">TOUCH 02 (+6 HOURS)</text>
+              <text x="415" y="132" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="14" font-weight="900">Objection &amp; Guarantee</text>
+              <text x="415" y="162" text-anchor="middle" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="12">• Answers #1 durability doubt</text>
+              <text x="415" y="184" text-anchor="middle" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="12">• Highlights 30-Day Trial</text>
+              <text x="415" y="216" text-anchor="middle" fill="#34D399" font-family="Consolas, monospace" font-size="12" font-weight="900">DISCOUNT: 0% (Full Margin!)</text>
+              <text x="415" y="246" text-anchor="middle" fill="#FBBF24" font-family="Consolas, monospace" font-size="11.5">Recovers ~5.2% of Carts</text>
+
+              <rect x="560" y="75" width="240" height="220" rx="12" fill="#1E293B" stroke="#2563EB" stroke-width="2.5"/>
+              <text x="680" y="105" text-anchor="middle" fill="#60A5FA" font-family="Consolas, monospace" font-size="12" font-weight="900">TOUCH 03 (+24 HOURS)</text>
+              <text x="680" y="132" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="14" font-weight="900">Spec Matrix &amp; Free Ship</text>
+              <text x="680" y="162" text-anchor="middle" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="12">• Side-by-side spec proof</text>
+              <text x="680" y="184" text-anchor="middle" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="12">• Verified buyer photo reviews</text>
+              <text x="680" y="216" text-anchor="middle" fill="#60A5FA" font-family="Consolas, monospace" font-size="12" font-weight="900">PERK: Free Priority Upgrade</text>
+              <text x="680" y="246" text-anchor="middle" fill="#FBBF24" font-family="Consolas, monospace" font-size="11.5">Recovers ~4.5% of Carts</text>
+
+              <rect x="825" y="75" width="245" height="220" rx="12" fill="#1E293B" stroke="#D97706" stroke-width="2.5"/>
+              <text x="947" y="105" text-anchor="middle" fill="#FBBF24" font-family="Consolas, monospace" font-size="12" font-weight="900">TOUCH 04 (+48 HOURS)</text>
+              <text x="947" y="132" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="14" font-weight="900">Margin-Gated Close</text>
+              <text x="947" y="162" text-anchor="middle" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="12">• Cart &gt; $75: $10 Cash Credit</text>
+              <text x="947" y="184" text-anchor="middle" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="12">• Cart &lt; $75: Free Mystery Gift</text>
+              <text x="947" y="216" text-anchor="middle" fill="#FBBF24" font-family="Consolas, monospace" font-size="12" font-weight="900">24h Expiring Dynamic Token</text>
+              <text x="947" y="246" text-anchor="middle" fill="#34D399" font-family="Consolas, monospace" font-size="11.5">Total Saved: 19.4% of Carts!</text>
+            </svg>
+          </div>
+          <div class="mm-caption-bar">
+            <strong>Cart Recovery Takeaway:</strong> Over 60% of recovered carts convert in Touches 1 and 2 at <strong>100% full retail price ($0 discount)</strong> simply by restoring the session and answering the buyer's top product question.
+          </div>
+        </div>
+
+        <!-- Tab 4: S.A.V.E. 24/7 AI Customer Support & 115% Exchange Engine -->
+        <div class="mm-pane" id="mmPane4">
+          <div class="mm-svg-box" id="mmSvgBox4">
+            <svg viewBox="0 0 1100 360" xmlns="http://www.w3.org/2000/svg">
+              <rect width="1100" height="360" rx="12" fill="#090D16"/>
+              <text x="550" y="34" text-anchor="middle" fill="#34D399" font-family="Consolas, monospace" font-size="14" font-weight="900">CHAPTER 7: THE S.A.V.E. 24/7 AI SUPPORT TRIAGE &amp; 115% EXCHANGE RETENTION ARCHITECTURE</text>
+              <rect x="40" y="75" width="310" height="230" rx="12" fill="#1E293B" stroke="#2563EB" stroke-width="2.5"/>
+              <text x="195" y="105" text-anchor="middle" fill="#60A5FA" font-family="Consolas, monospace" font-size="12.5" font-weight="900">1. INBOUND TICKET AI TRIAGE (&lt;8 SEC)</text>
+              <text x="195" y="140" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="12.5">• Live Order &amp; Carrier API Lookup</text>
+              <text x="195" y="168" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="12.5">• Deflects 74% of WISMO &amp; Sizing</text>
+              <text x="195" y="196" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="12.5">• Proactive 72h Stalled-Scan Alert</text>
+              <text x="195" y="236" text-anchor="middle" fill="#34D399" font-family="Consolas, monospace" font-size="12" font-weight="800">First-Response Time: 8 Seconds</text>
+
+              <rect x="395" y="75" width="310" height="230" rx="12" fill="#06281E" stroke="#059669" stroke-width="2.5"/>
+              <text x="550" y="105" text-anchor="middle" fill="#34D399" font-family="Consolas, monospace" font-size="12.5" font-weight="900">2. 115% BONUS EXCHANGE LOOP</text>
+              <text x="550" y="140" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="12.5">• Offer 1: Instant Variant Exchange</text>
+              <text x="550" y="168" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="12.5">• Offer 2: 115% Bonus Store Credit</text>
+              <text x="550" y="196" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="12.5">• Offer 3: Keep-It Partial Credit</text>
+              <text x="550" y="236" text-anchor="middle" fill="#FBBF24" font-family="Consolas, monospace" font-size="12" font-weight="800">Converts 45%-60% of Returns!</text>
+
+              <rect x="750" y="75" width="310" height="230" rx="12" fill="#1E293B" stroke="#D97706" stroke-width="2.5"/>
+              <text x="905" y="105" text-anchor="middle" fill="#FBBF24" font-family="Consolas, monospace" font-size="12.5" font-weight="900">3. CHARGEBACK SHIELD (&lt;0.25%)</text>
+              <text x="905" y="140" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="12.5">• Clear Billing Descriptor Match</text>
+              <text x="905" y="168" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="12.5">• Instant Pre-Dispute Auto-Refund</text>
+              <text x="905" y="196" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="12.5">• CE 3.0 Win-Package Evidence</text>
+              <text x="905" y="236" text-anchor="middle" fill="#34D399" font-family="Consolas, monospace" font-size="12" font-weight="800">Protects Stripe / Shopify Payments</text>
+            </svg>
+          </div>
+          <div class="mm-caption-bar">
+            <strong>Support &amp; Retention Takeaway:</strong> Customer support is a profit center. By offering 115% instant bonus store credit before processing a cash refund, you retain the customer and preserve your gross margin.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION B: 4 Empirical E-Commerce Market Research & Profit Recovery Charts -->
+<section id="market-benchmarks" style="background:#FFFFFF; border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">EMPIRICAL MARKET RESEARCH &amp; CASE STUDY TELEMETRY</div>
+      <h2>Why Standard Online Stores Bleed Cash (And How the OS Fixes It)</h2>
+      <p>Verified industry benchmark data from the Baymard Institute, Klaviyo Lifecycle Research, Gorgias Support Telemetry, and our 90-day Store OS turnarounds.</p>
+    </div>
+
+    <div class="charts-grid">
+      <!-- Chart 1: Baymard 70.19% Cart Abandonment Breakdown -->
+      <div class="chart-card">
+        <div class="chart-source">CHART 01 • BAYMARD INSTITUTE 49-STUDY META-ANALYSIS</div>
+        <h3>Why 70.19% of Shopping Carts Are Abandoned at Checkout</h3>
+        <p class="chart-sub">Breakdown of solvable checkout friction reasons (excluding "just browsing"):</p>
+        <svg viewBox="0 0 520 210" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+          <rect width="520" height="210" rx="10" fill="#0F172A"/>
+          <text x="16" y="34" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="12" font-weight="700">1. Surprise Shipping/Tax Fees</text>
+          <rect x="210" y="20" width="230" height="20" rx="4" fill="#DC2626"/>
+          <text x="448" y="35" fill="#FCA5A5" font-family="Consolas, monospace" font-size="12" font-weight="900">48%</text>
+
+          <text x="16" y="76" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="12" font-weight="700">2. Forced Account Creation</text>
+          <rect x="210" y="62" width="125" height="20" rx="4" fill="#D97706"/>
+          <text x="343" y="77" fill="#FBBF24" font-family="Consolas, monospace" font-size="12" font-weight="900">26%</text>
+
+          <text x="16" y="118" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="12" font-weight="700">3. Unclear / Slow Delivery Date</text>
+          <rect x="210" y="104" width="106" height="20" rx="4" fill="#2563EB"/>
+          <text x="324" y="119" fill="#60A5FA" font-family="Consolas, monospace" font-size="12" font-weight="900">22%</text>
+
+          <text x="16" y="160" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="12" font-weight="700">4. Long / Complex Form Fields</text>
+          <rect x="210" y="146" width="88" height="20" rx="4" fill="#059669"/>
+          <text x="306" y="161" fill="#34D399" font-family="Consolas, monospace" font-size="12" font-weight="900">18%</text>
+
+          <text x="16" y="194" fill="#34D399" font-family="Consolas, monospace" font-size="11" font-weight="700">✓ Chapter 5 1-Page Checkout Shield eliminates all 4 friction bars in 45 mins.</text>
+        </svg>
+        <div class="chart-takeaway">
+          <strong>Store OS Fix:</strong> Installing the Dynamic Free-Shipping Bar in the slide-out cart drawer + Guest Express Wallets (Shop Pay / Apple Pay) lifts checkout completion by <strong>+28% to +35%</strong>.
+        </div>
+      </div>
+
+      <!-- Chart 2: Single-Unit Trap vs. B.U.Y.E.R. 3-Tier Bundle Economics -->
+      <div class="chart-card">
+        <div class="chart-source">CHART 02 • UNIT ECONOMICS &amp; BUNDLE CONTRIBUTION AUDIT</div>
+        <h3>The Single-Unit Trap vs. B.U.Y.E.R. 3-Tier Bundles</h3>
+        <p class="chart-sub">Net Contribution Profit per Order after Landed COGS ($9.50/u), 3PL Shipping, and $24 Paid Ad CPA:</p>
+        <svg viewBox="0 0 520 210" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+          <rect width="520" height="210" rx="10" fill="#0F172A"/>
+          <!-- Tier 1 -->
+          <text x="16" y="42" fill="#FCA5A5" font-family="Arial, sans-serif" font-size="12" font-weight="700">1-Unit Only ($48 AOV)</text>
+          <rect x="195" y="26" width="42" height="22" rx="4" fill="#DC2626"/>
+          <text x="245" y="42" fill="#FCA5A5" font-family="Consolas, monospace" font-size="12" font-weight="900">-$2.80 Net Loss / Order</text>
+
+          <!-- Tier 2 -->
+          <text x="16" y="102" fill="#FBBF24" font-family="Arial, sans-serif" font-size="12" font-weight="700">2-Pack Most Popular ($82)</text>
+          <rect x="195" y="86" width="175" height="22" rx="4" fill="#D97706"/>
+          <text x="378" y="102" fill="#FBBF24" font-family="Consolas, monospace" font-size="12" font-weight="900">+$21.40 Net Profit</text>
+
+          <!-- Tier 3 -->
+          <text x="16" y="162" fill="#34D399" font-family="Arial, sans-serif" font-size="12" font-weight="700">3-Pack VIP Bundle ($108)</text>
+          <rect x="195" y="146" width="235" height="22" rx="4" fill="#059669"/>
+          <text x="436" y="162" fill="#34D399" font-family="Consolas, monospace" font-size="12" font-weight="900">+$36.90 Profit</text>
+
+          <text x="16" y="196" fill="#CBD5E1" font-family="Consolas, monospace" font-size="11">Pre-selecting the 2-Pack Bundle swings Break-Even ROAS from 2.26x down to 1.48x.</text>
+        </svg>
+        <div class="chart-takeaway">
+          <strong>Store OS Fix:</strong> Single-unit $45–$55 orders cannot survive modern $22–$28 Meta/TikTok CPAs. Pre-selecting the 2x Bundle turns unprofitable traffic into high-margin scale.
+        </div>
+      </div>
+
+      <!-- Chart 3: Broadcast Blasts vs. 5 Automated Behavioral Flows (RPR) -->
+      <div class="chart-card">
+        <div class="chart-source">CHART 03 • KLAVIYO / OMNISEND LIFECYCLE BENCHMARK (180k+ STORES)</div>
+        <h3>Broadcast Discount Blasts vs. 5 Automated Flows (RPR)</h3>
+        <p class="chart-sub">Average Revenue Per Recipient (RPR) generated by manual newsletters vs. behavioral triggers:</p>
+        <svg viewBox="0 0 520 210" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+          <rect width="520" height="210" rx="10" fill="#0F172A"/>
+          <text x="16" y="42" fill="#94A3B8" font-family="Arial, sans-serif" font-size="12" font-weight="700">Manual Campaign Blasts</text>
+          <rect x="200" y="26" width="14" height="22" rx="3" fill="#64748B"/>
+          <text x="222" y="42" fill="#CBD5E1" font-family="Consolas, monospace" font-size="12" font-weight="800">$0.08 / Recipient (Baseline)</text>
+
+          <text x="16" y="96" fill="#60A5FA" font-family="Arial, sans-serif" font-size="12" font-weight="700">Welcome Quiz Flow (Ch 6)</text>
+          <rect x="200" y="80" width="160" height="22" rx="4" fill="#2563EB"/>
+          <text x="368" y="96" fill="#60A5FA" font-family="Consolas, monospace" font-size="12" font-weight="900">$2.18 / Recipient (27.2x)</text>
+
+          <text x="16" y="150" fill="#34D399" font-family="Arial, sans-serif" font-size="12" font-weight="700">4-Touch Checkout Recovery</text>
+          <rect x="200" y="134" width="235" height="22" rx="4" fill="#059669"/>
+          <text x="442" y="150" fill="#34D399" font-family="Consolas, monospace" font-size="12" font-weight="900">$3.42 RPR (42.7x)</text>
+
+          <text x="16" y="194" fill="#FBBF24" font-family="Consolas, monospace" font-size="11" font-weight="700">5 Automated Flows generate 32%-41% of total store revenue on autopilot.</text>
+        </svg>
+        <div class="chart-takeaway">
+          <strong>Store OS Fix:</strong> Chapter 6 gives you the exact copy, timing, and JSON automation blueprints for all 5 Core Behavioral Flows (Welcome, Browse, Cart, Post-Purchase &amp; Replenishment).
+        </div>
+      </div>
+
+      <!-- Chart 4: 90-Day Turnaround Trajectory Curve (Apex Culinary Co.) -->
+      <div class="chart-card">
+        <div class="chart-source">CHART 04 • VERIFIED 90-DAY STORE OS TURNAROUND (CHAPTER 10 CASE STUDY)</div>
+        <h3>90-Day Net Profit Turnaround Trajectory (Apex Culinary Co.)</h3>
+        <p class="chart-sub">Monthly Net Contribution Profit ($/mo) &amp; Net Margin (%) across the 30/60/90-Day OS Installation:</p>
+        <svg viewBox="0 0 520 210" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+          <rect width="520" height="210" rx="10" fill="#0F172A"/>
+          <!-- Grid lines -->
+          <line x1="60" y1="165" x2="480" y2="165" stroke="#334155" stroke-width="1"/>
+          <line x1="60" y1="115" x2="480" y2="115" stroke="#334155" stroke-width="1" stroke-dasharray="4 4"/>
+          <line x1="60" y1="65" x2="480" y2="65" stroke="#334155" stroke-width="1" stroke-dasharray="4 4"/>
+          <!-- Polyline Curve -->
+          <polyline fill="none" stroke="#059669" stroke-width="4" points="90,158 220,112 350,74 460,36"/>
+          <!-- Nodes -->
+          <circle cx="90" cy="158" r="6" fill="#DC2626"/>
+          <text x="90" y="144" text-anchor="middle" fill="#FCA5A5" font-family="Consolas, monospace" font-size="11" font-weight="900">$1,450 (2.8%)</text>
+          <text x="90" y="185" text-anchor="middle" fill="#94A3B8" font-family="Arial, sans-serif" font-size="11">Day 0 Baseline</text>
+
+          <circle cx="220" cy="112" r="6" fill="#D97706"/>
+          <text x="220" y="98" text-anchor="middle" fill="#FBBF24" font-family="Consolas, monospace" font-size="11" font-weight="900">$14,900 (16.4%)</text>
+          <text x="220" y="185" text-anchor="middle" fill="#94A3B8" font-family="Arial, sans-serif" font-size="11">Day 30 (Bundles)</text>
+
+          <circle cx="350" cy="74" r="6" fill="#2563EB"/>
+          <text x="350" y="60" text-anchor="middle" fill="#60A5FA" font-family="Consolas, monospace" font-size="11" font-weight="900">$25,400 (21.2%)</text>
+          <text x="350" y="185" text-anchor="middle" fill="#94A3B8" font-family="Arial, sans-serif" font-size="11">Day 60 (Flows+AI)</text>
+
+          <circle cx="460" cy="36" r="7" fill="#10B981"/>
+          <text x="435" y="22" text-anchor="middle" fill="#34D399" font-family="Consolas, monospace" font-size="11.5" font-weight="900">$36,820/mo (24.8%)</text>
+          <text x="460" y="185" text-anchor="middle" fill="#34D399" font-family="Arial, sans-serif" font-size="11" font-weight="700">Day 90 Scale</text>
+        </svg>
+        <div class="chart-takeaway">
+          <strong>Store OS Fix:</strong> Follow the exact 100-Item 30/60/90-Day Installation Roadmap in Chapter 10 (and tracked live inside Module 5 of the Web App) to compound every margin lever sequentially.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Interactive Live Store Profit & Cart Recovery Simulator -->
+<section id="live-simulator">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">LIVE INTERACTIVE DIAGNOSTIC SANDBOX</div>
+      <h2>Calculate Your Store's Unclaimed Monthly &amp; Annual Profit</h2>
+      <p>Drag the 5 sliders below (or click a verified store preset) to see your exact Break-Even ROAS, Current Monthly Profit, and the Net Profit Lift from installing the 3-Tier Bundle &amp; 4-Touch Cart Recovery Engine.</p>
+    </div>
+
+    <div class="sim-card">
+      <div class="sim-header">
+        <div>
+          <strong style="font-size:18px;">Interactive Store Margin, Bundle AOV &amp; Cart Recovery Simulator</strong>
+          <div style="font-size:12.5px; color:#CBD5E1;">Equations 1.1–1.4 &amp; 5.1–5.3 • Instant Client-Side Calculation</div>
+        </div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <button type="button" class="btn btn-sm btn-outline-light" onclick="loadSimScenario(520, 62, 22, 70, 14500)">LuminaHome ($32k/mo)</button>
+          <button type="button" class="btn btn-sm btn-outline-light" onclick="loadSimScenario(1450, 74, 25, 68, 34000)">Apex Culinary ($107k/mo)</button>
+          <button type="button" class="btn btn-sm btn-amber" onclick="loadSimScenario(800, 65, 21, 68, 18500)">Reset Baseline</button>
+        </div>
+      </div>
+
+      <div class="sim-body">
+        <div>
+          <div class="slider-group">
+            <div class="slider-label">
+              <span>1. Monthly Completed Orders</span>
+              <span class="val mono" id="lbl_orders">800 orders/mo</span>
+            </div>
+            <input type="range" id="sim_orders" min="100" max="5000" step="50" value="800" oninput="runLandingSimulator()"/>
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-label">
+              <span>2. Current Average Order Value (Net AOV)</span>
+              <span class="val mono" id="lbl_aov">$65 / order</span>
+            </div>
+            <input type="range" id="sim_aov" min="25" max="250" step="1" value="65" oninput="runLandingSimulator()"/>
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-label">
+              <span>3. Landed Product COGS + 3PL Shipping + Gateway Fee ($/Order)</span>
+              <span class="val mono" id="lbl_cogs">$21 / order</span>
+            </div>
+            <input type="range" id="sim_cogs" min="8" max="150" step="1" value="21" oninput="runLandingSimulator()"/>
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-label">
+              <span>4. Current Checkout Abandonment Rate (%)</span>
+              <span class="val mono" id="lbl_abandon">68% abandoned</span>
+            </div>
+            <input type="range" id="sim_abandon" min="40" max="85" step="1" value="68" oninput="runLandingSimulator()"/>
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-label">
+              <span>5. Monthly Paid Ad Spend (Meta / TikTok / Google)</span>
+              <span class="val mono" id="lbl_adspend">$18,500 / mo</span>
+            </div>
+            <input type="range" id="sim_adspend" min="1000" max="150000" step="500" value="18500" oninput="runLandingSimulator()"/>
+          </div>
+        </div>
+
+        <div class="sim-results-grid">
+          <div class="sim-kpi">
+            <div class="k-lbl">Current Break-Even ROAS Floor</div>
+            <div class="k-val mono" id="out_be_roas">1.48x</div>
+            <div style="font-size:12px; color:var(--text-muted); margin-top:4px;" id="out_pread_pct">Pre-Ad Margin: $44.00 (67.7%)</div>
+          </div>
+
+          <div class="sim-kpi">
+            <div class="k-lbl">Current Baseline Net Profit / Mo</div>
+            <div class="k-val mono" id="out_curr_profit">$16,700</div>
+            <div style="font-size:12px; color:var(--text-muted); margin-top:4px;" id="out_curr_mer">Current Blended MER: 2.81x</div>
+          </div>
+
+          <div class="sim-kpi">
+            <div class="k-lbl">4-Touch Cart Recovery + Bundle Lift / Mo</div>
+            <div class="k-val mono" style="color:var(--blue);" id="out_lift_mo">+$14,820 / mo</div>
+            <div style="font-size:12px; color:var(--text-muted); margin-top:4px;" id="out_saved_orders">+19% Cart Recovery + 22% Bundle AOV Lift</div>
+          </div>
+
+          <div class="sim-kpi">
+            <div class="k-lbl">Projected New Monthly Net Profit</div>
+            <div class="k-val mono" style="color:var(--emerald);" id="out_new_profit">$31,520 / mo</div>
+            <div style="font-size:12px; color:var(--text-muted); margin-top:4px;">After installing Stages 1–5</div>
+          </div>
+
+          <div class="sim-kpi highlight">
+            <div class="k-lbl">ADDITIONAL ANNUALIZED NET PROFIT UNCOVERED BY THE STORE OS</div>
+            <div class="k-val mono" id="out_annual_lift">+$177,840 / Year Added to Your Bottom Line</div>
+            <div style="font-size:13px; color:#065F46; font-weight:700; margin-top:4px;">
+              Want to model your individual SKUs and inventory reorder points? <a href="./app.html" style="color:var(--blue); text-decoration:underline;">Open the Full 5-Module Web App →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5-Tier Commercial Pricing & Value-Ladder Matrix -->
+<section id="pricing-tiers" style="background:#FFFFFF; border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">5-TIER VALUE LADDER • ONE-TIME LICENSE • ZERO SAAS SUBSCRIPTIONS</div>
+      <h2>Choose Your Store Operating System Edition</h2>
+      <p>Start free with the Chapter 1 Margin &amp; Cart Audit Starter Kit, or deploy the complete Enterprise Master Suite with all 62 Prompts/Scripts, 8-Tab Excel Command Center, 5-DB Notion OS, and Pro Web App.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="tier-card">
+        <div>
+          <div class="tier-name">TIER 0 • LEAD MAGNET</div>
+          <div class="tier-title">Free Store Margin &amp; Cart Audit Kit</div>
+          <div class="tier-price">$0 <span>/ instant download</span></div>
+          <ul class="tier-list">
+            <li><strong>NEW:</strong> 2-Page Visual Start-Here Reading Guide (PDF + HTML)</li>
+            <li>34-Page Sample PDF (Full Chapter 1 + 5 Prompts)</li>
+            <li>Fillable Chapter 1 Margin Audit Workbook PDF</li>
+            <li>Interactive Web App (Free Diagnostic Mode)</li>
+            <li>Unit-Economics Calculator CSV + 2 HD Posters</li>
+          </ul>
+        </div>
+        <a href="./assets/Tier0-Free-Store-Margin-and-Cart-Audit-Kit.zip" download onclick="openReadingRoadmapModal()" class="btn btn-emerald" style="width:100%;">Download Free Kit (.ZIP)</a>
+      </div>
+
+      <div class="tier-card">
+        <div>
+          <div class="tier-name">TIER 1 • STARTER EDITION</div>
+          <div class="tier-title">Core Book + EPUB + 10 Workbooks</div>
+          <div class="tier-price">$29 <span>/ one-time</span></div>
+          <ul class="tier-list">
+            <li>259-Page Digital Master Book PDF (109,878 Words)</li>
+            <li>Reflowable EPUB 3.0 eBook (Kindle / Apple Books)</li>
+            <li>All 10 Fillable Chapter Workbooks + Combined 46p Workbook</li>
+            <li>All 50 AI Prompts + 12 Emergency Scripts</li>
+            <li>20 High-Res Architecture Diagrams</li>
+          </ul>
+        </div>
+        <a href="./app.html" class="btn btn-outline-dark" style="width:100%;">Preview in Web App</a>
+      </div>
+
+      <div class="tier-card">
+        <div>
+          <div class="tier-name">TIER 2 • OPERATOR BUNDLE</div>
+          <div class="tier-title">Professional Store OS + Excel &amp; Notion</div>
+          <div class="tier-price">$59 <span>/ one-time</span></div>
+          <ul class="tier-list">
+            <li>Everything in Tier 1 ($29 Edition) Included</li>
+            <li><strong>8-Tab Charted Excel Financial &amp; ROAS Matrix (.XLSX)</strong></li>
+            <li><strong>5-Database Notion E-Commerce OS Kit</strong></li>
+            <li><strong>12-Page Visual Shortcut Atlas PDF + 11 HD Posters</strong></li>
+            <li>Pro Web App License Key Included</li>
+          </ul>
+        </div>
+        <a href="./app.html" class="btn btn-blue" style="width:100%;">Launch Pro Preview</a>
+      </div>
+
+      <div class="tier-card featured">
+        <div class="tier-badge">MOST POPULAR • COMPLETE TURNKEY OS</div>
+        <div>
+          <div class="tier-name">TIER 3 • FLAGSHIP MASTER SUITE</div>
+          <div class="tier-title">Complete Enterprise Store OS Suite</div>
+          <div class="tier-price">$99 <span>/ one-time</span></div>
+          <ul class="tier-list">
+            <li>Everything in Tiers 0, 1 &amp; 2 Included</li>
+            <li><strong>Full Pro Web App License (All 62 Prompts &amp; 5 Modules)</strong></li>
+            <li><strong>7 Editable Word (.DOCX) SOPs, RFQs &amp; Playbooks</strong></li>
+            <li><strong>3 Editable PowerPoint (.PPTX) Executive Decks</strong></li>
+            <li><strong>5 Importable JSON Automation Blueprints + Design Studio</strong></li>
+          </ul>
+        </div>
+        <a href="./app.html" class="btn btn-amber" style="width:100%;">Open Full Command App →</a>
+      </div>
+
+      <div class="tier-card">
+        <div>
+          <div class="tier-name">TIER 4 • CONTINUING VAULT</div>
+          <div class="tier-title">Monthly E-Commerce Ad &amp; Prompt Drop</div>
+          <div class="tier-price">$29<span>/mo or $199/yr</span></div>
+          <ul class="tier-list">
+            <li>Includes Complete Tier 3 Master Suite</li>
+            <li>Drop #01 Included: <em>Q4 / BFCM High-Margin Bundle Pack</em></li>
+            <li>10 New Tested UGC Hooks &amp; Ad Scripts Monthly</li>
+            <li>5 Seasonal Klaviyo Email/SMS Flow Blueprints</li>
+            <li>Updated Paid Ad CPA &amp; MER Benchmarks</li>
+          </ul>
+        </div>
+        <a href="./studio.html" class="btn btn-outline-dark" style="width:100%;">Test BFCM Preset in Studio</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10-Chapter Curriculum Breakdown -->
+<section id="curriculum">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">109,878 WORDS • 10 CHAPTERS • 50 AI PROMPTS • 12 EMERGENCY SCRIPTS</div>
+      <h2>Complete 10-Chapter Engineering Curriculum</h2>
+      <p>Every chapter includes a Strategic Mindmap SVG, an Execution Flowchart SVG, Real Brand Case Studies, 5 Copy-and-Run AI Prompts, a 10-Item Action Checklist, and a Fillable PDF Workbook.</p>
+    </div>
+    <div class="chapter-grid" id="curriculumGrid"></div>
+  </div>
+</section>
+
+<!-- Interactive 4-Step Reading Roadmap Modal (Triggers on Free Starter Kit Download) -->
+<div class="modal-overlay" id="readingRoadmapModal" onclick="if(event.target===this) closeReadingRoadmapModal()">
+  <div class="modal-box">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+      <span class="section-tag" style="margin:0;">00 — START HERE • YOUR 30-MINUTE QUICK-START ROADMAP</span>
+      <button type="button" class="btn btn-sm btn-outline-dark" onclick="closeReadingRoadmapModal()">✕ Close</button>
+    </div>
+    <h3 style="font-size:24px; color:var(--primary); margin-bottom:6px;">How to Read &amp; Use Your Free Starter Kit (.ZIP)</h3>
+    <p style="font-size:14px; color:var(--text-muted);">
+      Your download includes our visual guide (<code>00-START-HERE-READING-GUIDE.pdf</code>) right at the top of the folder. Follow these 4 simple steps in order (takes 30 minutes total):
+    </p>
+
+    <div class="roadmap-step-list">
+      <div class="rm-step">
+        <span class="mono" style="font-size:11px; font-weight:800; color:var(--amber);">STEP 01 • MINUTES 0–5</span>
+        <h4>See the Big Picture Posters</h4>
+        <p>Open <code>00-ECOSYSTEM-MASTER-MAP-POSTER.png</code> and <code>cheat-sheet-ch01.png</code> to see the 5-Stage Store Profit Engine and the 3 core unit-economics formulas at a glance.</p>
+      </div>
+
+      <div class="rm-step" style="border-left-color:var(--blue);">
+        <span class="mono" style="font-size:11px; font-weight:800; color:var(--blue);">STEP 02 • MINUTES 5–20</span>
+        <h4>Read Chapter 1 &amp; LuminaHome Case Study</h4>
+        <p>Open <code>tier0-free-sample-chapter01-and-audit.pdf</code> (34 pages). Read how replacing a 20% discount code with 2-pack bundles turned a -$3,180/mo loss into +$11,420/mo net profit.</p>
+      </div>
+
+      <div class="rm-step" style="border-left-color:var(--emerald);">
+        <span class="mono" style="font-size:11px; font-weight:800; color:var(--emerald);">STEP 03 • MINUTES 20–25</span>
+        <h4>Run Your SKU Numbers in the Web App</h4>
+        <p>Double-click <code>ecommerce-os-app.html</code> (or open the live web app now) and enter your product price, COGS, shipping, and ad CPA to see your exact Break-Even ROAS.</p>
+      </div>
+
+      <div class="rm-step" style="border-left-color:var(--primary);">
+        <span class="mono" style="font-size:11px; font-weight:800; color:var(--primary);">STEP 04 • MINUTES 25–30</span>
+        <h4>Complete Your 7-Day Action Workbook</h4>
+        <p>Open <code>chapter-01-workbook.pdf</code> (6 pages, fillable right on your computer) to record your 3-SKU audit and check off your 72-Hour Margin Rescue actions.</p>
+      </div>
+    </div>
+
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; padding-top:12px; border-top:1px solid var(--border);">
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <a href="./assets/00-START-HERE-READING-GUIDE.pdf" target="_blank" class="btn btn-sm btn-blue">Open Visual Reading Guide (.PDF)</a>
+        <a href="./assets/tier0-free-sample-chapter01-and-audit.pdf" target="_blank" class="btn btn-sm btn-outline-dark">Open Chapter 1 Sample (.PDF)</a>
+        <a href="./assets/chapter-01-workbook.pdf" target="_blank" class="btn btn-sm btn-outline-dark">Open Fillable Workbook (.PDF)</a>
+      </div>
+      <a href="./app.html" class="btn btn-sm btn-emerald">Launch Web App Now →</a>
+    </div>
+  </div>
+</div>
+
+<!-- Fullscreen Mindmap Lightbox Modal -->
+<div class="modal-overlay" id="mindmapFullscreenModal" onclick="if(event.target===this) closeMindmapFullscreen()">
+  <div class="modal-box" style="max-width:1140px; background:#090D16; color:#FFFFFF; border-color:var(--amber);">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+      <span class="mono" style="color:#FBBF24; font-weight:800; font-size:13px;" id="mmModalTitle">FULLSCREEN ARCHITECTURE VIEWER</span>
+      <div style="display:flex; gap:8px;">
+        <button type="button" class="btn btn-sm btn-blue" onclick="downloadActiveMindmapSVG()">⬇ Download SVG</button>
+        <button type="button" class="btn btn-sm btn-outline-light" onclick="closeMindmapFullscreen()">✕ Close Fullscreen</button>
+      </div>
+    </div>
+    <div id="mmModalBody" style="background:#0F172A; padding:18px; border-radius:12px; border:1px solid #334155; overflow:auto;"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="container" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+    <div>
+      <strong style="color:#FFFFFF; font-size:16px;">The AI E-Commerce &amp; Online Store Operating System</strong><br/>
+      <span>Flagship Commercial Release #04 • 100% Self-Contained Digital Publishing Studio</span>
+    </div>
+    <div style="display:flex; gap:14px; flex-wrap:wrap;">
+      <a href="./app.html" style="color:#FBBF24; text-decoration:none; font-weight:700;">Interactive Web App</a>
+      <a href="./studio.html" style="color:#CBD5E1; text-decoration:none;">Design Studio</a>
+      <a href="./assets/00-START-HERE-READING-GUIDE.pdf" target="_blank" style="color:#CBD5E1; text-decoration:none;">4-Step Reading Guide</a>
+      <a href="./assets/Tier0-Free-Store-Margin-and-Cart-Audit-Kit.zip" download style="color:#34D399; text-decoration:none; font-weight:700;">Free Starter Kit (.ZIP)</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const CURRICULUM_DATA = [
+  { num: "CHAPTER 01 • STAGE 1", title: "The 5-Stage Store Profit Engine & Unit Economics Audit", desc: "Expose the ROAS Illusion, calculate true Contribution Margin per Order (CMO), set your Break-Even ROAS floor, and plug the 5 silent margin leaks in 72 hours.", meta: "Prompts 1.1–1.5 + Worksheet 01 + LuminaHome Case Study" },
+  { num: "CHAPTER 02 • STAGE 1", title: "AI Product Validation, Review Mining & Supplier RFQ Architecture", desc: "Run the 7-Point Product Scorecard, mine competitor 1-to-3 star reviews for Version 2.0 spec upgrades, and negotiate 25% MOQ reductions with factories.", meta: "Prompts 2.1–2.5 + Worksheet 02 + ErgoAlign Case Study" },
+  { num: "CHAPTER 03 • STAGE 2", title: "High-Converting Product Pages (B.U.Y.E.R.) & Tiered Volume Bundles", desc: "Engineer above-the-fold clarity, comparison matrices, and pre-selected 1x/2x/3x volume bundles that lift AOV by +32% and slash Break-Even ROAS.", meta: "Prompts 3.1–3.5 + Worksheet 03 + AuraSkin Case Study" },
+  { num: "CHAPTER 04 • STAGE 2", title: "The AI Ad Creative Factory & 3x3x3 Hook Testing Sandbox", desc: "Produce 27 modular video/static ad variations per product from 3 hooks, 3 bodies, and 3 CTAs, and enforce automated Kill/Hold/Scale rules.", meta: "Prompts 4.1–4.5 + Worksheet 04 + KovaGear Case Study" },
+  { num: "CHAPTER 05 • STAGE 3", title: "Checkout Friction Elimination & 4-Touch Cart Recovery Engine", desc: "Install the 1-Page Checkout Shield and the 72-Hour 4-Touch Objection-Slayer sequence to rescue 15%–22% of abandoned checkouts.", meta: "Prompts 5.1–5.5 + Worksheet 05 + AeroPress/Velo Case Study" },
+  { num: "CHAPTER 06 • STAGE 3", title: "Automated Email/SMS Lifecycle Flows & Post-Purchase Upsells", desc: "Deploy the 5 core behavioral flows (Welcome Quiz, Browse, Cart, Post-Purchase Cross-Sell & Replenishment) generating 32%+ of store revenue.", meta: "Prompts 6.1–6.5 + Worksheet 06 + BotanicalBliss Case Study" },
+  { num: "CHAPTER 07 • STAGE 4", title: "24/7 AI Customer Support (S.A.V.E.), Exchanges & Chargeback Shield", desc: "Deflect 70%+ of repetitive WISMO tickets in 8 seconds, convert returns into 115% bonus store credit exchanges, and keep disputes below 0.25%.", meta: "Prompts 7.1–7.5 + Worksheet 07 + StrideLabs Case Study" },
+  { num: "CHAPTER 08 • STAGE 4", title: "Customer LTV, Delivery-Anchored Reviews, UGC Bounty & Win-Back", desc: "Anchor review requests to carrier delivery confirmation (+7d), automate video UGC collection, and run the 45/75/105-day customer win-back ladder.", meta: "Prompts 8.1–8.5 + Worksheet 08 + PurePaws Case Study" },
+  { num: "CHAPTER 09 • STAGE 5", title: "Inventory Forecasting (R.O.P.), ABC Matrix & Cash-Conversion Cycle", desc: "Calculate weighted daily velocity, safety stock, and Reorder Points (ROP), and trigger the Pre-Stockout Price/Ad Throttle so you never stock out.", meta: "Prompts 9.1–9.5 + Worksheet 09 + TerraTrail Case Study" },
+  { num: "CHAPTER 10 • STAGE 5", title: "The 20-Minute Friday Store CEO Command & 90-Day Scaling Roadmap", desc: "Audit the 7 non-negotiable weekly metrics, apply the 4-Gate Budget Scaling Governor, sweep 45% of net profit, and execute the 100-item 90-day plan.", meta: "Prompts 10.1–10.5 + Worksheet 10 + Apex Culinary Case Study" }
+];
+
+const MINDMAP_TITLES = [
+  "DIAGRAM 01: THE 5-STAGE STORE PROFIT ENGINE MASTER ARCHITECTURE",
+  "DIAGRAM 02: 4-GATE SKU UNIT-ECONOMICS & FUNNEL LEAK DECISION TREE",
+  "DIAGRAM 03: THE B.U.Y.E.R. HIGH-CONVERTING PDP & 1x/2x/3x BUNDLE BLUEPRINT",
+  "DIAGRAM 04: THE 4-TOUCH OBJECTION-SLAYER CART RECOVERY TIMELINE",
+  "DIAGRAM 05: THE S.A.V.E. 24/7 AI SUPPORT & 115% EXCHANGE ENGINE"
+];
+
+let activeMindmapIdx = 0;
+
+function switchMindmapTab(idx) {
+  activeMindmapIdx = idx;
+  for (let i = 0; i < 5; i++) {
+    const btn = document.getElementById("mmTabBtn" + i);
+    const pane = document.getElementById("mmPane" + i);
+    if (btn) btn.classList.toggle("active", i === idx);
+    if (pane) pane.classList.toggle("active", i === idx);
+  }
+  const titleEl = document.getElementById("mmActiveTitle");
+  if (titleEl) titleEl.textContent = MINDMAP_TITLES[idx] || MINDMAP_TITLES[0];
+}
+
+function openMindmapFullscreen() {
+  const box = document.getElementById("mmSvgBox" + activeMindmapIdx);
+  const modal = document.getElementById("mindmapFullscreenModal");
+  const body = document.getElementById("mmModalBody");
+  const title = document.getElementById("mmModalTitle");
+  if (!box || !modal || !body) return;
+  if (title) title.textContent = MINDMAP_TITLES[activeMindmapIdx];
+  body.innerHTML = box.innerHTML;
+  const svg = body.querySelector("svg");
+  if (svg) svg.style.maxHeight = "78vh";
+  modal.classList.add("open");
+}
+
+function closeMindmapFullscreen() {
+  const modal = document.getElementById("mindmapFullscreenModal");
+  if (modal) modal.classList.remove("open");
+}
+
+function downloadActiveMindmapSVG() {
+  const box = document.getElementById("mmSvgBox" + activeMindmapIdx);
+  if (!box) return;
+  const svgEl = box.querySelector("svg");
+  if (!svgEl) return;
+  const svgStr = '<?xml version="1.0" encoding="UTF-8"?>\n' + svgEl.outerHTML;
+  const blob = new Blob([svgStr], { type: "image/svg+xml;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.style.display = "none";
+  a.href = url;
+  a.download = `ecommerce-os-architecture-diagram-0${activeMindmapIdx + 1}.svg`;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => {
+    if (a.parentNode) document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }, 400);
+}
+
+function openReadingRoadmapModal() {
+  const modal = document.getElementById("readingRoadmapModal");
+  if (modal) modal.classList.add("open");
+}
+
+function closeReadingRoadmapModal() {
+  const modal = document.getElementById("readingRoadmapModal");
+  if (modal) modal.classList.remove("open");
+}
+
+function loadSimScenario(orders, aov, cogs, abandon, adspend) {
+  document.getElementById("sim_orders").value = orders;
+  document.getElementById("sim_aov").value = aov;
+  document.getElementById("sim_cogs").value = cogs;
+  document.getElementById("sim_abandon").value = abandon;
+  document.getElementById("sim_adspend").value = adspend;
+  runLandingSimulator();
+}
+
+function runLandingSimulator() {
+  const orders = parseFloat(document.getElementById("sim_orders").value) || 800;
+  const aov = parseFloat(document.getElementById("sim_aov").value) || 65;
+  const cogs = parseFloat(document.getElementById("sim_cogs").value) || 21;
+  const abandon = parseFloat(document.getElementById("sim_abandon").value) || 68;
+  const adspend = parseFloat(document.getElementById("sim_adspend").value) || 18500;
+
+  document.getElementById("lbl_orders").textContent = `${orders.toLocaleString()} orders/mo`;
+  document.getElementById("lbl_aov").textContent = `$${aov} / order`;
+  document.getElementById("lbl_cogs").textContent = `$${cogs} / order`;
+  document.getElementById("lbl_abandon").textContent = `${abandon}% abandoned`;
+  document.getElementById("lbl_adspend").textContent = `$${adspend.toLocaleString()} / mo`;
+
+  const preAdMargin = Math.max(1, aov - cogs);
+  const preAdPct = (preAdMargin / aov) * 100;
+  const beRoas = aov / preAdMargin;
+
+  const currRev = orders * aov;
+  const currMer = adspend > 0 ? currRev / adspend : 0;
+  const currProfit = (orders * preAdMargin) - adspend;
+
+  // OS Lift: 19% recovery of abandoned carts + 22% bundle AOV lift on existing orders
+  const totalCheckoutsStarted = orders / Math.max(0.15, (1 - abandon / 100));
+  const abandonedCarts = Math.max(0, totalCheckoutsStarted - orders);
+  const recoveredOrders = Math.round(abandonedCarts * 0.19);
+  const newAov = aov * 1.22;
+  const newPreAdMargin = Math.max(preAdMargin, newAov - (cogs * 1.12));
+
+  const newTotalOrders = orders + recoveredOrders;
+  const newProfit = (newTotalOrders * newPreAdMargin) - adspend;
+  const monthlyLift = Math.max(0, newProfit - currProfit);
+  const annualLift = monthlyLift * 12;
+
+  document.getElementById("out_be_roas").textContent = beRoas.toFixed(2) + "x";
+  document.getElementById("out_pread_pct").textContent = `Pre-Ad Margin: $${preAdMargin.toFixed(2)} (${preAdPct.toFixed(1)}%)`;
+  document.getElementById("out_curr_profit").textContent = (currProfit >= 0 ? "$" : "-$") + Math.abs(Math.round(currProfit)).toLocaleString() + " / mo";
+  document.getElementById("out_curr_mer").textContent = `Current Blended MER: ${currMer.toFixed(2)}x`;
+  document.getElementById("out_lift_mo").textContent = "+$" + Math.round(monthlyLift).toLocaleString() + " / mo";
+  document.getElementById("out_saved_orders").textContent = `+${recoveredOrders} recovered orders/mo + $` + newAov.toFixed(0) + ` Bundled AOV`;
+  document.getElementById("out_new_profit").textContent = "$" + Math.round(newProfit).toLocaleString() + " / mo";
+  document.getElementById("out_annual_lift").textContent = `+$${Math.round(annualLift).toLocaleString()} / Year Added to Your Bottom Line`;
+}
+
+function renderCurriculum() {
+  const grid = document.getElementById("curriculumGrid");
+  if (!grid) return;
+  grid.innerHTML = CURRICULUM_DATA.map(ch => `
+    <div class="chapter-card">
+      <div class="ch-num">${ch.num}</div>
+      <h3>${ch.title}</h3>
+      <p>${ch.desc}</p>
+      <div class="chapter-meta">${ch.meta}</div>
+    </div>
+  `).join("");
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  renderCurriculum();
+  runLandingSimulator();
+});
+</script>
+</body>
+</html>

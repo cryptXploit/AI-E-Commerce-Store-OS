@@ -1,0 +1,1747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Interactive Cover, Product Ad Banner &amp; Offer Badge Customizer Studio</title>
+<style>
+:root {
+  --bg: #0F172A;
+  --panel: #1E293B;
+  --panel-dark: #090D16;
+  --amber: #D97706;
+  --amber-hover: #B45309;
+  --blue: #2563EB;
+  --emerald: #059669;
+  --text: #F8FAFC;
+  --muted: #94A3B8;
+  --border: #334155;
+  --font-display: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.6;
+}
+.topbar {
+  background: var(--panel-dark);
+  border-bottom: 2px solid var(--amber);
+  padding: 12px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.topbar-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.badge {
+  background: var(--amber);
+  color: #0F172A;
+  font-family: var(--font-mono);
+  font-weight: 900;
+  font-size: 11.5px;
+  padding: 4px 9px;
+  border-radius: 6px;
+}
+.nav-pill-group {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.nav-link-pill {
+  color: #CBD5E1;
+  text-decoration: none;
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(30, 41, 59, 0.7);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.nav-link-pill:hover {
+  color: #FFFFFF;
+  border-color: var(--amber);
+  transform: translateY(-1px);
+}
+.btn {
+  padding: 9px 16px;
+  border-radius: 8px;
+  border: none;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+.btn-amber { background: var(--amber); color: #FFFFFF; box-shadow: 0 4px 12px rgba(217, 119, 6, 0.3); }
+.btn-amber:hover { background: var(--amber-hover); }
+.btn-emerald { background: var(--emerald); color: #FFFFFF; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3); }
+.btn-emerald:hover { background: #047857; }
+.btn-blue { background: var(--blue); color: #FFFFFF; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); }
+.btn-blue:hover { background: #1D4ED8; }
+.btn-outline { background: rgba(30, 41, 59, 0.8); color: var(--text); border: 1px solid var(--border); }
+.btn-outline:hover { border-color: #94A3B8; background: #334155; }
+
+.workspace {
+  display: grid;
+  grid-template-columns: 420px 1fr 310px;
+  flex: 1;
+  min-height: calc(100vh - 60px);
+}
+.sidebar, .right-panel {
+  background: var(--panel);
+  border-right: 1px solid var(--border);
+  padding: 18px;
+  overflow-y: auto;
+  max-height: calc(100vh - 60px);
+}
+.right-panel {
+  border-right: none;
+  border-left: 1px solid var(--border);
+}
+.control-section {
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 14px;
+}
+.control-section h3 {
+  font-size: 12px;
+  font-family: var(--font-mono);
+  color: #FBBF24;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 10px;
+}
+.preset-btn-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.preset-btn {
+  background: #0F172A;
+  color: #CBD5E1;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 9px 10px;
+  font-size: 11.5px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.preset-btn:hover {
+  border-color: var(--amber);
+  color: #FFFFFF;
+  transform: translateY(-1px);
+}
+.preset-btn.active {
+  background: rgba(217, 119, 6, 0.18);
+  border-color: var(--amber);
+  color: #FFFFFF;
+  box-shadow: 0 0 0 1px var(--amber);
+}
+.preset-btn small {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: #94A3B8;
+  margin-top: 2px;
+}
+.theme-swatch-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+  margin-bottom: 10px;
+}
+.theme-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #0F172A;
+  color: #CBD5E1;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 7px 9px;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.theme-btn:hover { border-color: #94A3B8; color: #FFFFFF; }
+.theme-btn.active {
+  border-color: var(--amber);
+  color: #FFFFFF;
+  background: rgba(217, 119, 6, 0.14);
+}
+.swatch-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.4);
+  flex-shrink: 0;
+}
+label {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #CBD5E1;
+  margin-bottom: 4px;
+  margin-top: 9px;
+}
+input[type="text"], textarea, select {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 7px;
+  border: 1px solid var(--border);
+  background: #0F172A;
+  color: #FFFFFF;
+  font-size: 12.5px;
+  font-family: inherit;
+  transition: border-color 0.18s ease;
+}
+input[type="text"]:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--amber);
+}
+textarea { resize: vertical; min-height: 52px; }
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-top: 8px;
+}
+.color-item input[type="color"] {
+  width: 100%;
+  height: 34px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: #0F172A;
+  cursor: pointer;
+}
+.canvas-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px 24px;
+  background: radial-gradient(circle at center, #1E293B 0%, #090D16 100%);
+  overflow: auto;
+}
+.stage-toolbar {
+  width: 100%;
+  max-width: 780px;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.preview-wrapper {
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65);
+  border: 2px solid #334155;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #0F172A;
+  max-width: 100%;
+  transition: all 0.22s ease;
+}
+.preview-wrapper svg {
+  display: block;
+  max-height: 70vh;
+  width: auto;
+  height: auto;
+}
+.preview-wrapper.zoom-full svg {
+  max-height: none;
+  max-width: 100%;
+}
+.telemetry-bar {
+  margin-top: 14px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.swipe-card {
+  background: #0F172A;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+.swipe-card:hover {
+  border-color: var(--amber);
+  transform: translateY(-1px);
+}
+.toast-container {
+  position: fixed;
+  bottom: 22px;
+  right: 22px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.toast {
+  background: #059669;
+  color: #FFFFFF;
+  padding: 12px 18px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.35);
+  border: 1px solid #34D399;
+}
+@media (max-width: 1180px) {
+  .workspace { grid-template-columns: 380px 1fr; }
+  .right-panel { grid-column: 1 / -1; max-height: none; border-left: none; border-top: 1px solid var(--border); }
+}
+@media (max-width: 860px) {
+  .workspace { grid-template-columns: 1fr; }
+  .sidebar { max-height: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-left">
+    <div class="topbar-title">
+      <span class="badge">DESIGN STUDIO v2.0</span>
+      <span>Interactive Cover, Ad Creative &amp; Offer Badge Studio</span>
+    </div>
+    
+        <div class="nav-pill-group">
+          <a href="./index.html" class="nav-link-pill">← Back to Storefront</a>
+          <a href="./app.html" class="nav-link-pill">Open Web App</a>
+        </div>
+        
+  </div>
+  <div style="display:flex; gap:10px; flex-wrap:wrap;">
+    <button type="button" id="btnResetStudio" class="btn btn-outline" onclick="resetStudio()">↺ Reset Studio to Default</button>
+    <button type="button" id="btnExportSVG" class="btn btn-blue" onclick="exportSVG()">⬇ Download Crisp Vector (.SVG)</button>
+    <button type="button" id="btnExportPNG" class="btn btn-emerald" onclick="exportPNG()">⬇ Download High-Res PNG (.PNG)</button>
+  </div>
+</header>
+
+<div class="workspace">
+  <!-- Left Panel: Step-by-Step Controls -->
+  <aside class="sidebar">
+    <!-- Step 1: Choose Template Format -->
+    <div class="control-section">
+      <h3>Step 1 — Choose Template Format (4 Presets)</h3>
+      <div class="preset-btn-grid">
+        <button type="button" class="preset-btn active" id="presetBtn0" onclick="selectPreset(0)">
+          1. Book / Workbook Cover
+          <small>1600 × 2560 px (1:1.6)</small>
+        </button>
+        <button type="button" class="preset-btn" id="presetBtn1" onclick="selectPreset(1)">
+          2. Square Paid Ad Card
+          <small>1080 × 1080 px (1:1)</small>
+        </button>
+        <button type="button" class="preset-btn" id="presetBtn2" onclick="selectPreset(2)">
+          3. Story / Reel Offer Ad
+          <small>1080 × 1920 px (9:16)</small>
+        </button>
+        <button type="button" class="preset-btn" id="presetBtn3" onclick="selectPreset(3)">
+          4. Storefront Hero Banner
+          <small>1920 × 1080 px (16:9)</small>
+        </button>
+      </div>
+      <label for="sel_preset">Or Select Format from Dropdown</label>
+      <select id="sel_preset" onchange="selectPreset(this.value)"></select>
+    </div>
+
+    <!-- Step 2: Select Color Theme -->
+    <div class="control-section">
+      <h3>Step 2 — Select Color Theme (6 Swatches)</h3>
+      <div class="theme-swatch-grid">
+        <button type="button" class="theme-btn active" id="themeBtn0" onclick="selectTheme(0)">
+          <span class="swatch-dot" style="background:#D97706;"></span>Commerce Amber
+        </button>
+        <button type="button" class="theme-btn" id="themeBtn1" onclick="selectTheme(1)">
+          <span class="swatch-dot" style="background:#2563EB;"></span>Trust Royal Blue
+        </button>
+        <button type="button" class="theme-btn" id="themeBtn2" onclick="selectTheme(2)">
+          <span class="swatch-dot" style="background:#059669;"></span>Margin Emerald Pro
+        </button>
+        <button type="button" class="theme-btn" id="themeBtn3" onclick="selectTheme(3)">
+          <span class="swatch-dot" style="background:#EAB308;"></span>Luxe Obsidian Gold
+        </button>
+        <button type="button" class="theme-btn" id="themeBtn4" onclick="selectTheme(4)">
+          <span class="swatch-dot" style="background:#EA580C;"></span>Clean Botanical
+        </button>
+        <button type="button" class="theme-btn" id="themeBtn5" onclick="selectTheme(5)">
+          <span class="swatch-dot" style="background:#DC2626;"></span>BFCM Crimson
+        </button>
+      </div>
+      <select id="sel_theme" onchange="selectTheme(this.value)" style="margin-bottom:6px;"></select>
+      <div class="color-grid">
+        <div class="color-item">
+          <label>Primary BG</label>
+          <input type="color" id="col_bg" value="#0F172A" oninput="renderCanvasSVG()"/>
+        </div>
+        <div class="color-item">
+          <label>Card Slate</label>
+          <input type="color" id="col_card" value="#1E293B" oninput="renderCanvasSVG()"/>
+        </div>
+        <div class="color-item">
+          <label>Accent Color</label>
+          <input type="color" id="col_accent" value="#D97706" oninput="renderCanvasSVG()"/>
+        </div>
+        <div class="color-item">
+          <label>Badge Color</label>
+          <input type="color" id="col_emerald" value="#059669" oninput="renderCanvasSVG()"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3: Edit Text, Offer Badge & Metrics -->
+    <div class="control-section">
+      <h3>Step 3 — Edit Text, Offer Badge &amp; Metrics</h3>
+      <label>Top Tagline / Authority Ribbon</label>
+      <input type="text" id="inp_ribbon" oninput="renderCanvasSVG()"/>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+        <div>
+          <label>Headline — Line 1</label>
+          <input type="text" id="inp_h1_1" oninput="renderCanvasSVG()"/>
+        </div>
+        <div>
+          <label>Headline — Line 2</label>
+          <input type="text" id="inp_h1_2" oninput="renderCanvasSVG()"/>
+        </div>
+      </div>
+
+      <label>Highlighted Accent Title Box</label>
+      <input type="text" id="inp_h1_acc" oninput="renderCanvasSVG()"/>
+
+      <label>Subtitle / Value Hook</label>
+      <textarea id="inp_subtitle" oninput="renderCanvasSVG()"></textarea>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+        <div>
+          <label>Offer Price Display</label>
+          <input type="text" id="inp_price" value="$68.00" oninput="renderCanvasSVG()"/>
+        </div>
+        <div>
+          <label>Compare-At Anchor</label>
+          <input type="text" id="inp_compare_price" value="$89.00" oninput="renderCanvasSVG()"/>
+        </div>
+      </div>
+
+      <label>Offer Badge Text</label>
+      <input type="text" id="inp_offer" oninput="renderCanvasSVG()"/>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:6px;">
+        <div>
+          <label>Pill 1 Metric</label>
+          <input type="text" id="inp_b1_v" oninput="renderCanvasSVG()"/>
+        </div>
+        <div>
+          <label>Pill 1 Label</label>
+          <input type="text" id="inp_b1_l" oninput="renderCanvasSVG()"/>
+        </div>
+        <div>
+          <label>Pill 2 Metric</label>
+          <input type="text" id="inp_b2_v" oninput="renderCanvasSVG()"/>
+        </div>
+        <div>
+          <label>Pill 2 Label</label>
+          <input type="text" id="inp_b2_l" oninput="renderCanvasSVG()"/>
+        </div>
+        <div>
+          <label>Pill 3 Metric</label>
+          <input type="text" id="inp_b3_v" oninput="renderCanvasSVG()"/>
+        </div>
+        <div>
+          <label>Pill 3 Label</label>
+          <input type="text" id="inp_b3_l" oninput="renderCanvasSVG()"/>
+        </div>
+      </div>
+
+      <label>Footer Brand Name / Imprint</label>
+      <input type="text" id="inp_footer" oninput="renderCanvasSVG()"/>
+    </div>
+
+    <!-- Step 4: Upload Product Photo or Logo -->
+    <div class="control-section">
+      <h3>Step 4 — Upload Product Photo or Logo</h3>
+      <label>Choose Local Image (.PNG / .JPG / .SVG)</label>
+      <input type="file" id="inp_file" accept="image/*" onchange="handleImageUpload(event)" style="margin-top:6px; font-size:12px;"/>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:8px;">
+        <div>
+          <label>Image Scale (<span id="lbl_scale">100</span>%)</label>
+          <input type="range" id="inp_img_scale" min="40" max="180" value="100" oninput="document.getElementById('lbl_scale').textContent=this.value; renderCanvasSVG();" style="width:100%;"/>
+        </div>
+        <div>
+          <label>Vertical Offset (<span id="lbl_y">0</span>px)</label>
+          <input type="range" id="inp_img_y" min="-120" max="120" value="0" oninput="document.getElementById('lbl_y').textContent=this.value; renderCanvasSVG();" style="width:100%;"/>
+        </div>
+      </div>
+      <button type="button" class="btn btn-outline" style="width:100%; margin-top:10px; font-size:12px;" onclick="clearUploadedImage()">✕ Clear Uploaded Image (Restore 5-Stage Diagram)</button>
+    </div>
+  </aside>
+
+  <!-- Center Panel: Live Responsive SVG/Canvas Preview -->
+  <main class="canvas-stage">
+    <div class="stage-toolbar">
+      <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+        <span class="badge" id="badgeResolution">1600 × 2560 px</span>
+        <button type="button" class="btn btn-outline" style="padding:5px 10px; font-size:11.5px;" onclick="setPreviewZoom('fit')">Fit to Screen</button>
+        <button type="button" class="btn btn-outline" style="padding:5px 10px; font-size:11.5px;" onclick="setPreviewZoom('full')">100% Zoom</button>
+      </div>
+      <div style="display:flex; gap:6px; flex-wrap:wrap;">
+        <button type="button" class="btn btn-outline" style="padding:5px 10px; font-size:11.5px;" onclick="loadQuickTemplate('cover')">Load Book Cover Preset</button>
+        <button type="button" class="btn btn-outline" style="padding:5px 10px; font-size:11.5px;" onclick="loadQuickTemplate('bundle')">Load 3-Tier Bundle Ad</button>
+        <button type="button" class="btn btn-outline" style="padding:5px 10px; font-size:11.5px;" onclick="loadQuickTemplate('bfcm')">Load BFCM Flash Sale</button>
+      </div>
+    </div>
+
+    <div class="preview-wrapper" id="svgPreviewContainer"></div>
+
+    <div class="telemetry-bar">
+      <span id="statusDimensions">Native Resolution: 1600 × 2560 px (kindle_cover)</span>
+      <span>•</span>
+      <span>Vector Engine: Pure XML SVG + HTML5 Canvas Rasterizer</span>
+      <span>•</span>
+      <span style="color:#34D399; font-weight:700;">100% Offline Ready</span>
+    </div>
+    <canvas id="offscreenCanvas" style="display:none;"></canvas>
+  </main>
+
+  <!-- Right Panel: Quick Export & 50-Swipe Ad Copy Library -->
+  <aside class="right-panel">
+    <div class="control-section">
+      <h3>1-Click Production Export</h3>
+      <p style="font-size:12px; color:#CBD5E1; margin-bottom:10px;">Export your customized cover or ad creative at full native pixel resolution.</p>
+      <button type="button" class="btn btn-emerald" style="width:100%; margin-bottom:8px;" onclick="exportPNG()">⬇ Download High-Res PNG (.PNG)</button>
+      <button type="button" class="btn btn-blue" style="width:100%; margin-bottom:8px;" onclick="exportSVG()">⬇ Download Crisp Vector (.SVG)</button>
+      <button type="button" class="btn btn-outline" style="width:100%;" onclick="resetStudio()">↺ Reset Studio to Default</button>
+    </div>
+
+    <div class="control-section">
+      <h3>High-Converting Copy Swipes</h3>
+      <p style="font-size:11.5px; color:#94A3B8; margin-bottom:10px;">Click any tested e-commerce hook below to populate the live canvas immediately:</p>
+      <div id="swipeListContainer"></div>
+    </div>
+  </aside>
+</div>
+
+<div class="toast-container" id="studioToastContainer"></div>
+
+<script id="embeddedCopySwipeLibrary" type="application/json">
+[
+  {
+    "swipe_id": "BANNER-SWIPE-01",
+    "category": "Ergonomics & Wellness",
+    "ribbon": "BATCH #01 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #01: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $13 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-02",
+    "category": "Clinical Skincare",
+    "ribbon": "BATCH #02 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #02: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $14 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-03",
+    "category": "Specialty Cookware",
+    "ribbon": "BATCH #03 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #03: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $15 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-04",
+    "category": "Pet Longevity & Nutrition",
+    "ribbon": "BATCH #04 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #04: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $16 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-05",
+    "category": "Artisan Coffee & Matcha",
+    "ribbon": "BATCH #05 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #05: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $17 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-06",
+    "category": "Smart Home & Kitchen",
+    "ribbon": "BATCH #06 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #06: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $18 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-07",
+    "category": "Ergonomics & Wellness",
+    "ribbon": "BATCH #07 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #07: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $19 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-08",
+    "category": "Clinical Skincare",
+    "ribbon": "BATCH #08 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #08: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $20 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-09",
+    "category": "Specialty Cookware",
+    "ribbon": "BATCH #09 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #09: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $21 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-10",
+    "category": "Pet Longevity & Nutrition",
+    "ribbon": "BATCH #10 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #10: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $22 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-11",
+    "category": "Artisan Coffee & Matcha",
+    "ribbon": "BATCH #11 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #11: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $23 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-12",
+    "category": "Smart Home & Kitchen",
+    "ribbon": "BATCH #12 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #12: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $24 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-13",
+    "category": "Ergonomics & Wellness",
+    "ribbon": "BATCH #13 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #13: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $25 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-14",
+    "category": "Clinical Skincare",
+    "ribbon": "BATCH #14 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #14: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $26 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-15",
+    "category": "Specialty Cookware",
+    "ribbon": "BATCH #15 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #15: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $12 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-16",
+    "category": "Pet Longevity & Nutrition",
+    "ribbon": "BATCH #16 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #16: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $13 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-17",
+    "category": "Artisan Coffee & Matcha",
+    "ribbon": "BATCH #17 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #17: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $14 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-18",
+    "category": "Smart Home & Kitchen",
+    "ribbon": "BATCH #18 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #18: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $15 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-19",
+    "category": "Ergonomics & Wellness",
+    "ribbon": "BATCH #19 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #19: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $16 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-20",
+    "category": "Clinical Skincare",
+    "ribbon": "BATCH #20 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #20: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $17 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-21",
+    "category": "Specialty Cookware",
+    "ribbon": "BATCH #21 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #21: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $18 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-22",
+    "category": "Pet Longevity & Nutrition",
+    "ribbon": "BATCH #22 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #22: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $19 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-23",
+    "category": "Artisan Coffee & Matcha",
+    "ribbon": "BATCH #23 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #23: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $20 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-24",
+    "category": "Smart Home & Kitchen",
+    "ribbon": "BATCH #24 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #24: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $21 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-25",
+    "category": "Ergonomics & Wellness",
+    "ribbon": "BATCH #25 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #25: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $22 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-26",
+    "category": "Clinical Skincare",
+    "ribbon": "BATCH #26 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #26: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $23 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-27",
+    "category": "Specialty Cookware",
+    "ribbon": "BATCH #27 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #27: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $24 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-28",
+    "category": "Pet Longevity & Nutrition",
+    "ribbon": "BATCH #28 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #28: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $25 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-29",
+    "category": "Artisan Coffee & Matcha",
+    "ribbon": "BATCH #29 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #29: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $26 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-30",
+    "category": "Smart Home & Kitchen",
+    "ribbon": "BATCH #30 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #30: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $12 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-31",
+    "category": "Ergonomics & Wellness",
+    "ribbon": "BATCH #31 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #31: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $13 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-32",
+    "category": "Clinical Skincare",
+    "ribbon": "BATCH #32 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #32: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $14 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-33",
+    "category": "Specialty Cookware",
+    "ribbon": "BATCH #33 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #33: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $15 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-34",
+    "category": "Pet Longevity & Nutrition",
+    "ribbon": "BATCH #34 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #34: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $16 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-35",
+    "category": "Artisan Coffee & Matcha",
+    "ribbon": "BATCH #35 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #35: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $17 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-36",
+    "category": "Smart Home & Kitchen",
+    "ribbon": "BATCH #36 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #36: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $18 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-37",
+    "category": "Ergonomics & Wellness",
+    "ribbon": "BATCH #37 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #37: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $19 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-38",
+    "category": "Clinical Skincare",
+    "ribbon": "BATCH #38 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #38: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $20 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-39",
+    "category": "Specialty Cookware",
+    "ribbon": "BATCH #39 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #39: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $21 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-40",
+    "category": "Pet Longevity & Nutrition",
+    "ribbon": "BATCH #40 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #40: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $22 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-41",
+    "category": "Artisan Coffee & Matcha",
+    "ribbon": "BATCH #41 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #41: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $23 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-42",
+    "category": "Smart Home & Kitchen",
+    "ribbon": "BATCH #42 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #42: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $24 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-43",
+    "category": "Ergonomics & Wellness",
+    "ribbon": "BATCH #43 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #43: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $25 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-44",
+    "category": "Clinical Skincare",
+    "ribbon": "BATCH #44 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #44: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $26 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-45",
+    "category": "Specialty Cookware",
+    "ribbon": "BATCH #45 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #45: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $12 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-46",
+    "category": "Pet Longevity & Nutrition",
+    "ribbon": "BATCH #46 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #46: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $13 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-47",
+    "category": "Artisan Coffee & Matcha",
+    "ribbon": "BATCH #47 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #47: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $14 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-48",
+    "category": "Smart Home & Kitchen",
+    "ribbon": "BATCH #48 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #48: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $15 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-49",
+    "category": "Ergonomics & Wellness",
+    "ribbon": "BATCH #49 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #49: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $16 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  },
+  {
+    "swipe_id": "BANNER-SWIPE-50",
+    "category": "Clinical Skincare",
+    "ribbon": "BATCH #50 ALLOCATION \u2022 FREE PRIORITY SHIPPING ON 2-PACK BUNDLES",
+    "headline": "VERSION 2.0 ENGINEERED UPGRADE #50: BUILT FOR 65%+ CONTRIBUTION MARGIN",
+    "offer_callout": "SELECT THE 2x MOST POPULAR BUNDLE & SAVE $17 + FREE MYSTERY GIFT",
+    "aspect_ratios": [
+      "1600x2560",
+      "1080x1080",
+      "1080x1920",
+      "1920x1080"
+    ]
+  }
+]
+</script>
+
+<script>
+const PRESETS = [
+  {
+    "id": "kindle_cover",
+    "name": "1. Book / Workbook Cover (1600 × 2560 px)",
+    "width": 1600,
+    "height": 2560,
+    "ribbon": "ENTERPRISE DIGITAL COMMERCE OPERATING SYSTEM • 2026 EDITION",
+    "h1_line1": "THE AI E-COMMERCE",
+    "h1_line2": "& ONLINE STORE",
+    "h1_accent": "OPERATING SYSTEM",
+    "subtitle": "Validate High-Margin SKUs, Engineer B.U.Y.E.R. Store Pages, Automate 24/7 Support, Recover Abandoned Carts & Scale Repeat Profit",
+    "price": "$59.00",
+    "compare_price": "$99.00",
+    "badge1_val": "+67.4% CMO",
+    "badge1_lbl": "Pre-Ad Margin Target",
+    "badge2_val": "1.48x ROAS",
+    "badge2_lbl": "True Break-Even Floor",
+    "badge3_val": "18.4% SAVE",
+    "badge3_lbl": "72h Cart Recovery",
+    "offer_banner": "INCLUDES 50 TESTED AI PROMPTS • 12 EMERGENCY SCRIPTS • 5 CALCULATORS",
+    "footer": "DIGITAL KNOWLEDGE PRODUCT STUDIO • FLAGSHIP EDITION #04"
+  },
+  {
+    "id": "square_ad",
+    "name": "2. Square Paid Ad Promo Card (1080 × 1080 px)",
+    "width": 1080,
+    "height": 1080,
+    "ribbon": "MOST POPULAR 2-PACK BUNDLE • FREE TRACKED PRIORITY SHIPPING",
+    "h1_line1": "UPGRADE TO V2",
+    "h1_line2": "55D ERGONOMIC",
+    "h1_accent": "LUMBAR SUPPORT",
+    "subtitle": "Engineered with Virgin 55D BASF Slow-Rebound Core + Breathable 3D Cooling Mesh + Dual Heavy-Duty Chair & Car Straps",
+    "price": "$68.00",
+    "compare_price": "$89.00",
+    "badge1_val": "55D CORE",
+    "badge1_lbl": "Never-Flatten Foam",
+    "badge2_val": "3D MESH",
+    "badge2_lbl": "Zero Back Sweat",
+    "badge3_val": "30-DAY",
+    "badge3_lbl": "In-Home Risk-Free Trial",
+    "offer_banner": "BUY 2 SAVE 15% + FREE EXPRESS SHIPPING + FREE EXTENSION STRAP",
+    "footer": "4.9/5 RATING FROM 1,480+ VERIFIED OFFICE & COMMUTER BUYERS"
+  },
+  {
+    "id": "story_reel",
+    "name": "3. Vertical Story / Reel Offer Ad (1080 × 1920 px)",
+    "width": 1080,
+    "height": 1920,
+    "ribbon": "VIP EARLY ACCESS • LIMITED BATCH #04 ALLOCATION",
+    "h1_line1": "WHY 68% CHOOSE",
+    "h1_line2": "THE KEEP-1-GIFT-1",
+    "h1_accent": "2-PACK BUNDLE",
+    "subtitle": "Keep One V2 Unit for Your Desk + Keep One in Your Car & Skip the $6.95 Shipping Fee Today",
+    "price": "$68.00",
+    "compare_price": "$96.00",
+    "badge1_val": "SAVE $28",
+    "badge1_lbl": "Instant Bundle Savings",
+    "badge2_val": "$0 SHIP",
+    "badge2_lbl": "Free Priority Dispatch",
+    "badge3_val": "+$18 GIFT",
+    "badge3_lbl": "Free Mystery Accessory",
+    "offer_banner": "TAP BELOW — 2x BUNDLE PRE-SELECTED IN CART DRAWER",
+    "footer": "SHIPS SAME BUSINESS DAY BEFORE 2:00 PM EST • 115% EXCHANGE GUARANTEE"
+  },
+  {
+    "id": "hero_widescreen",
+    "name": "4. Storefront / Gumroad Hero Banner (1920 × 1080 px)",
+    "width": 1920,
+    "height": 1080,
+    "ribbon": "COMPLETE AI E-COMMERCE & ONLINE STORE OPERATING SYSTEM • TIER 3 FLAGSHIP",
+    "h1_line1": "THE 5-STAGE",
+    "h1_line2": "STORE PROFIT",
+    "h1_accent": "ENGINE SUITE",
+    "subtitle": "259p Book + Offline SaaS Web App + 8-Tab Excel Command Center + 5-DB Notion OS + 10 Fillable Workbooks + 7 Word SOPs",
+    "price": "$99.00",
+    "compare_price": "$199.00",
+    "badge1_val": "62 ITEMS",
+    "badge1_lbl": "50 Prompts + 12 Scripts",
+    "badge2_val": "8 TABS",
+    "badge2_lbl": "Charted Excel Matrix",
+    "badge3_val": "100% LOCAL",
+    "badge3_lbl": "Zero SaaS Subscriptions",
+    "offer_banner": "COMPLETE TIER 3 MASTER SUITE + FULL PRO WEB APP ACCESS INCLUDED",
+    "footer": "DIGITAL KNOWLEDGE PRODUCT STUDIO • SHOPIFY / WOOCOMMERCE / DTC OS"
+  }
+];
+
+const THEMES = [
+  {
+    "name": "Commerce Amber & Navy (Default)",
+    "bg": "#0F172A",
+    "card": "#1E293B",
+    "accent": "#D97706",
+    "secondary": "#2563EB",
+    "emerald": "#059669"
+  },
+  {
+    "name": "Trust Royal Blue & Crisp Navy",
+    "bg": "#0B132B",
+    "card": "#1C2541",
+    "accent": "#2563EB",
+    "secondary": "#0EA5E9",
+    "emerald": "#10B981"
+  },
+  {
+    "name": "Margin Emerald Pro & Slate",
+    "bg": "#06281E",
+    "card": "#0D3B2E",
+    "accent": "#10B981",
+    "secondary": "#D97706",
+    "emerald": "#059669"
+  },
+  {
+    "name": "Luxe Obsidian & Gold",
+    "bg": "#09090B",
+    "card": "#18181B",
+    "accent": "#EAB308",
+    "secondary": "#71717A",
+    "emerald": "#10B981"
+  },
+  {
+    "name": "Clean Botanical & Terracotta",
+    "bg": "#1C1917",
+    "card": "#292524",
+    "accent": "#EA580C",
+    "secondary": "#0D9488",
+    "emerald": "#16A34A"
+  },
+  {
+    "name": "BFCM High-Urgency Crimson",
+    "bg": "#180808",
+    "card": "#2A1212",
+    "accent": "#DC2626",
+    "secondary": "#F59E0B",
+    "emerald": "#10B981"
+  }
+];
+
+let currentPresetIdx = 0;
+let currentThemeIdx = 0;
+let uploadedImageDataUrl = null;
+
+function showStudioToast(msg) {
+  const container = document.getElementById("studioToastContainer");
+  if (!container) return;
+  const t = document.createElement("div");
+  t.className = "toast";
+  t.textContent = msg;
+  container.appendChild(t);
+  setTimeout(() => {
+    if (t.parentNode) t.parentNode.removeChild(t);
+  }, 2800);
+}
+
+function escapeXml(unsafe) {
+  return String(unsafe || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+}
+
+function initStudio() {
+  const selPreset = document.getElementById("sel_preset");
+  if (selPreset) {
+    selPreset.innerHTML = PRESETS.map((p, i) => `<option value="${i}">${p.name}</option>`).join("");
+  }
+  const selTheme = document.getElementById("sel_theme");
+  if (selTheme) {
+    selTheme.innerHTML = THEMES.map((t, i) => `<option value="${i}">${t.name}</option>`).join("");
+  }
+  renderSwipeCards();
+  selectPreset(0, true);
+}
+
+function renderSwipeCards() {
+  const container = document.getElementById("swipeListContainer");
+  const scriptEl = document.getElementById("embeddedCopySwipeLibrary");
+  if (!container || !scriptEl) return;
+  try {
+    const swipes = JSON.parse(scriptEl.textContent).slice(0, 8);
+    container.innerHTML = swipes.map((s, idx) => `
+      <div class="swipe-card" onclick="applySwipeCard(${idx})">
+        <div style="font-family:var(--font-mono); font-size:10px; color:#FBBF24; font-weight:800;">${s.swipe_id} • ${s.category}</div>
+        <div style="font-size:11.5px; font-weight:700; color:#FFFFFF; margin-top:3px;">${s.headline}</div>
+        <div style="font-size:11px; color:#34D399; margin-top:3px;">${s.offer_callout}</div>
+      </div>
+    `).join("");
+  } catch (e) {
+    console.warn("Swipe library parse skipped:", e);
+  }
+}
+
+function applySwipeCard(idx) {
+  const scriptEl = document.getElementById("embeddedCopySwipeLibrary");
+  if (!scriptEl) return;
+  const swipes = JSON.parse(scriptEl.textContent);
+  const s = swipes[idx];
+  if (!s) return;
+  document.getElementById("inp_ribbon").value = s.ribbon;
+  document.getElementById("inp_h1_1").value = s.category.toUpperCase();
+  document.getElementById("inp_h1_2").value = "ENGINEERED V2.0";
+  document.getElementById("inp_h1_acc").value = "65%+ MARGIN BUNDLE";
+  document.getElementById("inp_offer").value = s.offer_callout;
+  renderCanvasSVG();
+  showStudioToast(`Loaded ${s.swipe_id} (${s.category}) into live canvas!`);
+}
+
+function selectPreset(idx, silent) {
+  currentPresetIdx = parseInt(idx, 10) || 0;
+  const p = PRESETS[currentPresetIdx] || PRESETS[0];
+  const sel = document.getElementById("sel_preset");
+  if (sel) sel.value = String(currentPresetIdx);
+  for (let i = 0; i < 4; i++) {
+    const btn = document.getElementById("presetBtn" + i);
+    if (btn) btn.classList.toggle("active", i === currentPresetIdx);
+  }
+  document.getElementById("inp_ribbon").value = p.ribbon;
+  document.getElementById("inp_h1_1").value = p.h1_line1;
+  document.getElementById("inp_h1_2").value = p.h1_line2;
+  document.getElementById("inp_h1_acc").value = p.h1_accent;
+  document.getElementById("inp_subtitle").value = p.subtitle;
+  document.getElementById("inp_price").value = p.price;
+  document.getElementById("inp_compare_price").value = p.compare_price;
+  document.getElementById("inp_b1_v").value = p.badge1_val;
+  document.getElementById("inp_b1_l").value = p.badge1_lbl;
+  document.getElementById("inp_b2_v").value = p.badge2_val;
+  document.getElementById("inp_b2_l").value = p.badge2_lbl;
+  document.getElementById("inp_b3_v").value = p.badge3_val;
+  document.getElementById("inp_b3_l").value = p.badge3_lbl;
+  document.getElementById("inp_offer").value = p.offer_banner;
+  document.getElementById("inp_footer").value = p.footer;
+  renderCanvasSVG();
+  if (!silent) showStudioToast(`Switched artboard to ${p.name}`);
+}
+const loadPreset = selectPreset;
+
+function selectTheme(idx) {
+  currentThemeIdx = parseInt(idx, 10) || 0;
+  const t = THEMES[currentThemeIdx] || THEMES[0];
+  const sel = document.getElementById("sel_theme");
+  if (sel) sel.value = String(currentThemeIdx);
+  for (let i = 0; i < 6; i++) {
+    const btn = document.getElementById("themeBtn" + i);
+    if (btn) btn.classList.toggle("active", i === currentThemeIdx);
+  }
+  document.getElementById("col_bg").value = t.bg;
+  document.getElementById("col_card").value = t.card;
+  document.getElementById("col_accent").value = t.accent;
+  document.getElementById("col_emerald").value = t.emerald;
+  renderCanvasSVG();
+  showStudioToast(`Applied theme: ${t.name}`);
+}
+const applyTheme = selectTheme;
+
+function loadQuickTemplate(mode) {
+  if (mode === "cover") {
+    selectPreset(0, true);
+    selectTheme(0);
+  } else if (mode === "bundle") {
+    selectPreset(1, true);
+    selectTheme(2);
+  } else if (mode === "bfcm") {
+    selectPreset(2, true);
+    selectTheme(5);
+    document.getElementById("inp_ribbon").value = "BLACK FRIDAY VIP EARLY ACCESS • 48 HOURS ONLY";
+    document.getElementById("inp_offer").value = "BUY 2 SAVE 25% + FREE EXPRESS SHIPPING + $24 MYSTERY GIFT";
+    renderCanvasSVG();
+  }
+}
+
+function setPreviewZoom(mode) {
+  const wrap = document.getElementById("svgPreviewContainer");
+  if (!wrap) return;
+  wrap.classList.toggle("zoom-full", mode === "full");
+  showStudioToast(mode === "full" ? "Preview set to 100% Native Scale" : "Preview fit to workspace screen");
+}
+
+function resetStudio() {
+  uploadedImageDataUrl = null;
+  const f = document.getElementById("inp_file");
+  if (f) f.value = "";
+  document.getElementById("inp_img_scale").value = "100";
+  document.getElementById("inp_img_y").value = "0";
+  document.getElementById("lbl_scale").textContent = "100";
+  document.getElementById("lbl_y").textContent = "0";
+  selectTheme(0);
+  selectPreset(currentPresetIdx, true);
+  showStudioToast("Studio reset to default preset values.");
+}
+const resetCurrentPreset = resetStudio;
+
+function handleImageUpload(event) {
+  const file = event.target.files && event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    uploadedImageDataUrl = e.target.result;
+    renderCanvasSVG();
+    showStudioToast("Custom product photo/logo loaded onto canvas!");
+  };
+  reader.readAsDataURL(file);
+}
+
+function clearUploadedImage() {
+  uploadedImageDataUrl = null;
+  const f = document.getElementById("inp_file");
+  if (f) f.value = "";
+  renderCanvasSVG();
+  showStudioToast("Cleared uploaded image and restored 5-Stage vector diagram.");
+}
+
+function renderCanvasSVG() {
+  const p = PRESETS[currentPresetIdx] || PRESETS[0];
+  const W = p.width;
+  const H = p.height;
+
+  const colBg = document.getElementById("col_bg").value || "#0F172A";
+  const colCard = document.getElementById("col_card").value || "#1E293B";
+  const colAccent = document.getElementById("col_accent").value || "#D97706";
+  const colEmerald = document.getElementById("col_emerald").value || "#059669";
+
+  const ribbon = escapeXml(document.getElementById("inp_ribbon").value);
+  const h1_1 = escapeXml(document.getElementById("inp_h1_1").value);
+  const h1_2 = escapeXml(document.getElementById("inp_h1_2").value);
+  const h1_acc = escapeXml(document.getElementById("inp_h1_acc").value);
+  const rawSubtitle = String(document.getElementById("inp_subtitle").value || "");
+  const priceTxt = escapeXml(document.getElementById("inp_price").value);
+  const compareTxt = escapeXml(document.getElementById("inp_compare_price").value);
+  const b1v = escapeXml(document.getElementById("inp_b1_v").value);
+  const b1l = escapeXml(document.getElementById("inp_b1_l").value);
+  const b2v = escapeXml(document.getElementById("inp_b2_v").value);
+  const b2l = escapeXml(document.getElementById("inp_b2_l").value);
+  const b3v = escapeXml(document.getElementById("inp_b3_v").value);
+  const b3l = escapeXml(document.getElementById("inp_b3_l").value);
+  const offer = escapeXml(document.getElementById("inp_offer").value);
+  const footer = escapeXml(document.getElementById("inp_footer").value);
+
+  const imgScale = (parseFloat(document.getElementById("inp_img_scale").value) || 100) / 100.0;
+  const imgOffsetY = parseFloat(document.getElementById("inp_img_y").value) || 0;
+
+  // Split raw subtitle BEFORE XML escaping so entity tokens are never split mid-word
+  const words = rawSubtitle.split(/\s+/);
+  const mid = Math.ceil(words.length / 2);
+  const subLine1 = escapeXml(words.slice(0, mid).join(" "));
+  const subLine2 = escapeXml(words.slice(mid).join(" "));
+
+  const pad = Math.round(W * 0.06);
+  const innerW = W - pad * 2;
+  const cx = Math.round(W / 2);
+
+  const ribbonY = Math.round(H * 0.052);
+  const ribbonH = Math.round(H * 0.038);
+  const h1Size = Math.round(W * 0.060);
+  const h1Y1 = Math.round(H * 0.150);
+  const h1Y2 = Math.round(H * 0.210);
+  const accBoxY = Math.round(H * 0.232);
+  const accBoxH = Math.round(H * 0.065);
+  const subY1 = Math.round(H * 0.332);
+  const subY2 = Math.round(H * 0.364);
+
+  const badgeY = Math.round(H * 0.398);
+  const badgeH = Math.round(H * 0.075);
+  const badgeW = Math.round((innerW - 40) / 3);
+
+  const centerBoxY = Math.round(H * 0.495);
+  const centerBoxH = Math.round(H * 0.315);
+
+  const offerY = Math.round(H * 0.835);
+  const offerH = Math.round(H * 0.062);
+  const footerY = Math.round(H * 0.945);
+
+  let centerShowcaseContent = "";
+  if (uploadedImageDataUrl) {
+    const imgW = Math.round(innerW * 0.68 * imgScale);
+    const imgH = Math.round(centerBoxH * 0.85 * imgScale);
+    const imgX = Math.round(cx - imgW / 2);
+    const imgY = Math.round(centerBoxY + (centerBoxH - imgH) / 2 + imgOffsetY);
+    centerShowcaseContent = `
+      <rect x="${pad}" y="${centerBoxY}" width="${innerW}" height="${centerBoxH}" rx="18" fill="${colCard}" stroke="${colAccent}" stroke-width="3"/>
+      <image href="${uploadedImageDataUrl}" x="${imgX}" y="${imgY}" width="${imgW}" height="${imgH}" preserveAspectRatio="xMidYMid meet"/>
+      <rect x="${pad + innerW - 260}" y="${centerBoxY + 18}" width="240" height="58" rx="12" fill="${colEmerald}"/>
+      <text x="${pad + innerW - 140}" y="${centerBoxY + 55}" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="26" font-weight="900">${priceTxt}  (${compareTxt})</text>
+    `;
+  } else {
+    const sH = Math.round((centerBoxH - 48) / 3);
+    centerShowcaseContent = `
+      <rect x="${pad}" y="${centerBoxY}" width="${innerW}" height="${centerBoxH}" rx="18" fill="${colCard}" stroke="#64748B" stroke-width="2"/>
+      <rect x="${pad + 24}" y="${centerBoxY + 14}" width="${innerW - 48}" height="${sH - 6}" rx="10" fill="${colBg}" stroke="${colAccent}" stroke-width="2"/>
+      <text x="${cx}" y="${centerBoxY + 14 + Math.round(sH*0.58)}" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="${Math.round(W*0.020)}" font-weight="800">01 VALIDATE &amp; SOURCE  --&gt;  02 CONVERT &amp; BUNDLE (${priceTxt} vs ${compareTxt})</text>
+
+      <rect x="${pad + 24}" y="${centerBoxY + 14 + sH}" width="${innerW - 48}" height="${sH - 6}" rx="10" fill="${colBg}" stroke="#2563EB" stroke-width="2"/>
+      <text x="${cx}" y="${centerBoxY + 14 + sH + Math.round(sH*0.58)}" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="${Math.round(W*0.020)}" font-weight="800">03 RECOVER &amp; UPSELL  --&gt;  04 FULFILL &amp; 24/7 AI SUPPORT</text>
+
+      <rect x="${pad + 24}" y="${centerBoxY + 14 + sH*2}" width="${innerW - 48}" height="${sH - 6}" rx="10" fill="${colBg}" stroke="${colEmerald}" stroke-width="2"/>
+      <text x="${cx}" y="${centerBoxY + 14 + sH*2 + Math.round(sH*0.58)}" text-anchor="middle" fill="${colEmerald}" font-family="Arial, sans-serif" font-size="${Math.round(W*0.020)}" font-weight="900">05 RETAIN, R.O.P. INVENTORY SHIELD &amp; FRIDAY STORE CEO</text>
+    `;
+  }
+
+  const svgMarkup = `<svg id="liveStudioSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">
+  <defs>
+    <pattern id="studio_grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#64748B" stroke-width="1" stroke-opacity="0.16"/>
+    </pattern>
+  </defs>
+  <rect width="${W}" height="${H}" fill="${colBg}"/>
+  <rect width="${W}" height="${H}" fill="url(#studio_grid)"/>
+  <rect x="${Math.round(pad*0.45)}" y="${Math.round(pad*0.45)}" width="${W - Math.round(pad*0.9)}" height="${H - Math.round(pad*0.9)}" rx="22" fill="none" stroke="${colAccent}" stroke-width="3" stroke-opacity="0.65"/>
+
+  <rect x="${pad}" y="${ribbonY}" width="${innerW}" height="${ribbonH}" rx="10" fill="${colAccent}"/>
+  <text x="${cx}" y="${ribbonY + Math.round(ribbonH*0.66)}" text-anchor="middle" fill="${colBg}" font-family="Consolas, monospace" font-size="${Math.round(W*0.0165)}" font-weight="900" letter-spacing="1.2">${ribbon}</text>
+
+  <text x="${cx}" y="${h1Y1}" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="${h1Size}" font-weight="900">${h1_1}</text>
+  <text x="${cx}" y="${h1Y2}" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="${h1Size}" font-weight="900">${h1_2}</text>
+  <rect x="${pad}" y="${accBoxY}" width="${innerW}" height="${accBoxH}" rx="14" fill="${colCard}" stroke="${colAccent}" stroke-width="3.5"/>
+  <text x="${cx}" y="${accBoxY + Math.round(accBoxH*0.72)}" text-anchor="middle" fill="${colAccent}" font-family="Arial, sans-serif" font-size="${Math.round(h1Size*0.90)}" font-weight="900">${h1_acc}</text>
+
+  <text x="${cx}" y="${subY1}" text-anchor="middle" fill="#E2E8F0" font-family="Arial, sans-serif" font-size="${Math.round(W*0.0195)}" font-weight="600">${subLine1}</text>
+  <text x="${cx}" y="${subY2}" text-anchor="middle" fill="${colAccent}" font-family="Arial, sans-serif" font-size="${Math.round(W*0.0195)}" font-weight="700">${subLine2}</text>
+
+  <g transform="translate(${pad}, ${badgeY})">
+    <rect x="0" y="0" width="${badgeW}" height="${badgeH}" rx="12" fill="${colCard}" stroke="${colEmerald}" stroke-width="2.5"/>
+    <text x="${Math.round(badgeW/2)}" y="${Math.round(badgeH*0.48)}" text-anchor="middle" fill="${colEmerald}" font-family="Consolas, monospace" font-size="${Math.round(W*0.023)}" font-weight="900">${b1v}</text>
+    <text x="${Math.round(badgeW/2)}" y="${Math.round(badgeH*0.80)}" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="${Math.round(W*0.014)}" font-weight="700">${b1l}</text>
+
+    <rect x="${badgeW + 20}" y="0" width="${badgeW}" height="${badgeH}" rx="12" fill="${colCard}" stroke="${colAccent}" stroke-width="2.5"/>
+    <text x="${badgeW + 20 + Math.round(badgeW/2)}" y="${Math.round(badgeH*0.48)}" text-anchor="middle" fill="${colAccent}" font-family="Consolas, monospace" font-size="${Math.round(W*0.023)}" font-weight="900">${b2v}</text>
+    <text x="${badgeW + 20 + Math.round(badgeW/2)}" y="${Math.round(badgeH*0.80)}" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="${Math.round(W*0.014)}" font-weight="700">${b2l}</text>
+
+    <rect x="${(badgeW + 20)*2}" y="0" width="${badgeW}" height="${badgeH}" rx="12" fill="${colCard}" stroke="#2563EB" stroke-width="2.5"/>
+    <text x="${(badgeW + 20)*2 + Math.round(badgeW/2)}" y="${Math.round(badgeH*0.48)}" text-anchor="middle" fill="#60A5FA" font-family="Consolas, monospace" font-size="${Math.round(W*0.023)}" font-weight="900">${b3v}</text>
+    <text x="${(badgeW + 20)*2 + Math.round(badgeW/2)}" y="${Math.round(badgeH*0.80)}" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="${Math.round(W*0.014)}" font-weight="700">${b3l}</text>
+  </g>
+
+  ${centerShowcaseContent}
+
+  <rect x="${pad}" y="${offerY}" width="${innerW}" height="${offerH}" rx="12" fill="${colEmerald}"/>
+  <text x="${cx}" y="${offerY + Math.round(offerH*0.64)}" text-anchor="middle" fill="#FFFFFF" font-family="Consolas, monospace" font-size="${Math.round(W*0.0175)}" font-weight="900">${offer}</text>
+
+  <text x="${cx}" y="${footerY}" text-anchor="middle" fill="#94A3B8" font-family="Consolas, monospace" font-size="${Math.round(W*0.0145)}" font-weight="700" letter-spacing="1.5">${footer}</text>
+</svg>`;
+
+  document.getElementById("svgPreviewContainer").innerHTML = svgMarkup;
+  document.getElementById("statusDimensions").textContent = `Native Resolution: ${W} × ${H} px (${p.id})`;
+  const badgeRes = document.getElementById("badgeResolution");
+  if (badgeRes) badgeRes.textContent = `${W} × ${H} px`;
+  return svgMarkup;
+}
+
+function triggerBlobDownload(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.style.display = "none";
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => {
+    if (a.parentNode) document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }, 400);
+}
+
+function exportSVG() {
+  const svgStr = '<?xml version="1.0" encoding="UTF-8"?>\n' + renderCanvasSVG();
+  const p = PRESETS[currentPresetIdx] || PRESETS[0];
+  const blob = new Blob([svgStr], { type: "image/svg+xml;charset=utf-8" });
+  const fname = `ecommerce-os-${p.id}-${p.width}x${p.height}.svg`;
+  triggerBlobDownload(blob, fname);
+  showStudioToast(`Downloaded crisp vector SVG (${fname})`);
+}
+const exportLiveSVG = exportSVG;
+
+function exportPNG() {
+  const svgStr = renderCanvasSVG();
+  const p = PRESETS[currentPresetIdx] || PRESETS[0];
+  const canvas = document.getElementById("offscreenCanvas");
+  canvas.width = p.width;
+  canvas.height = p.height;
+  const ctx = canvas.getContext("2d");
+
+  const img = new Image();
+  const encodedSvg = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svgStr);
+  img.onload = function() {
+    ctx.clearRect(0, 0, p.width, p.height);
+    ctx.drawImage(img, 0, 0, p.width, p.height);
+    const fname = `ecommerce-os-${p.id}-${p.width}x${p.height}.png`;
+    if (canvas.toBlob) {
+      canvas.toBlob(function(pngBlob) {
+        if (pngBlob) {
+          triggerBlobDownload(pngBlob, fname);
+          showStudioToast(`Rendered & downloaded high-res PNG (${p.width}×${p.height} px)!`);
+        }
+      }, "image/png");
+    } else {
+      const dataUrl = canvas.toDataURL("image/png");
+      const a = document.createElement("a");
+      a.href = dataUrl;
+      a.download = fname;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      showStudioToast(`Rendered & downloaded high-res PNG (${p.width}×${p.height} px)!`);
+    }
+  };
+  img.src = encodedSvg;
+}
+const exportHighResPNG = exportPNG;
+
+window.addEventListener("DOMContentLoaded", initStudio);
+</script>
+</body>
+</html>

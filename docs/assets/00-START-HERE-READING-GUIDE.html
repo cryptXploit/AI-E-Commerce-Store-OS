@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>00 — START HERE: 4-Step Visual Reading &amp; Quick-Start Action Guide</title>
+<style>
+@page {
+  size: letter portrait;
+  margin: 0.45in;
+}
+:root {
+  --navy: #0F172A;
+  --slate: #1E293B;
+  --amber: #D97706;
+  --amber-light: #FEF3C7;
+  --blue: #2563EB;
+  --blue-light: #DBEAFE;
+  --emerald: #059669;
+  --emerald-light: #D1FAE5;
+  --text: #1E293B;
+  --muted: #64748B;
+  --bg: #F8FAFC;
+  --border: #CBD5E1;
+  --font-display: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+  font-size: 13.5px;
+  padding: 24px;
+}
+.page-wrap {
+  max-width: 920px;
+  margin: 0 auto;
+  background: #FFFFFF;
+  border: 2px solid var(--navy);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.10);
+}
+.hero-banner {
+  background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+  color: #FFFFFF;
+  padding: 26px 32px;
+  border-bottom: 4px solid var(--amber);
+}
+.hero-tag {
+  display: inline-block;
+  background: var(--amber);
+  color: #0F172A;
+  font-family: var(--font-mono);
+  font-weight: 900;
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.8px;
+  margin-bottom: 10px;
+}
+.hero-banner h1 {
+  font-family: var(--font-display);
+  font-size: 25px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+.hero-banner p {
+  color: #CBD5E1;
+  font-size: 13.5px;
+  max-width: 780px;
+}
+.content-body { padding: 26px 32px; }
+.section-title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 2px solid #E2E8F0;
+  padding-bottom: 6px;
+}
+.steps-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.step-card {
+  background: #F8FAFC;
+  border: 1.5px solid var(--border);
+  border-top: 4px solid var(--amber);
+  border-radius: 12px;
+  padding: 16px 18px;
+}
+.step-card.step-2 { border-top-color: var(--blue); }
+.step-card.step-3 { border-top-color: var(--emerald); }
+.step-card.step-4 { border-top-color: var(--navy); }
+.step-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.step-badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: 6px;
+  background: var(--amber-light);
+  color: #92400E;
+}
+.step-2 .step-badge { background: var(--blue-light); color: #1E40AF; }
+.step-3 .step-badge { background: var(--emerald-light); color: #065F46; }
+.step-4 .step-badge { background: #E2E8F0; color: var(--navy); }
+.step-time {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 700;
+}
+.step-card h3 {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+.file-pill {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 700;
+  background: #FFFFFF;
+  border: 1px solid #94A3B8;
+  color: var(--blue);
+  padding: 3px 8px;
+  border-radius: 5px;
+  margin-bottom: 8px;
+}
+.step-card p {
+  font-size: 12.8px;
+  color: #334155;
+  margin-bottom: 8px;
+}
+.step-goal {
+  background: #FFFFFF;
+  border-left: 3px solid var(--emerald);
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--navy);
+  border-radius: 0 6px 6px 0;
+}
+.file-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  font-size: 12.5px;
+}
+.file-table th {
+  background: var(--navy);
+  color: #FFFFFF;
+  text-align: left;
+  padding: 9px 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+}
+.file-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--border);
+}
+.file-table tr:nth-child(even) { background: #F8FAFC; }
+.formula-strip {
+  background: var(--navy);
+  color: #FFFFFF;
+  border-radius: 12px;
+  padding: 16px 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 18px;
+}
+.formula-box {
+  background: rgba(30, 41, 59, 0.9);
+  border: 1px solid #334155;
+  border-left: 3px solid var(--amber);
+  padding: 10px 12px;
+  border-radius: 8px;
+}
+.formula-box .f-lbl {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: #FBBF24;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.formula-box .f-eq {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 4px 0;
+}
+.formula-box .f-target {
+  font-size: 11px;
+  color: #34D399;
+  font-weight: 700;
+}
+.footer-note {
+  background: #FEF3C7;
+  border: 1.5px solid var(--amber);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 12.5px;
+  color: #78350F;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+@media print {
+  body { padding: 0; background: #FFFFFF; }
+  .page-wrap { box-shadow: none; border: 1px solid #CBD5E1; }
+}
+@media (max-width: 720px) {
+  .steps-grid, .formula-strip { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+  <header class="hero-banner">
+    <div class="hero-tag">00 — START HERE FIRST • 30-MINUTE QUICK-START ROADMAP</div>
+    <h1>How to Use Your Free Store Margin &amp; Cart Audit Starter Kit</h1>
+    <p>Follow this exact 4-step sequence to audit your SKU unit economics, read the LuminaHome turnaround case study, run the offline calculator web app, and complete your 72-Hour Margin Rescue plan.</p>
+  </header>
+
+  <div class="content-body">
+    <div class="section-title">1. Your 4-Step, 30-Minute Execution Sequence</div>
+
+    <div class="steps-grid">
+      <div class="step-card step-1">
+        <div class="step-header">
+          <span class="step-badge">STEP 01 • VISUAL OVERVIEW</span>
+          <span class="step-time">Minutes 0–5 (5 Mins)</span>
+        </div>
+        <h3>See the 5-Stage Store Profit Engine</h3>
+        <div class="file-pill">00-ECOSYSTEM-MASTER-MAP-POSTER.png + cheat-sheet-ch01.png</div>
+        <p>Open the two high-resolution visual architecture posters first. See how SKU Validation, B.U.Y.E.R. Product Page Bundles, 4-Touch Cart Recovery, 24/7 AI Support, and Friday CEO Reviews lock together.</p>
+        <div class="step-goal">Goal: Memorize the 3 non-negotiable unit-economics formulas below before reading Chapter 1.</div>
+      </div>
+
+      <div class="step-card step-2">
+        <div class="step-header">
+          <span class="step-badge">STEP 02 • CORE READING</span>
+          <span class="step-time">Minutes 5–20 (15 Mins)</span>
+        </div>
+        <h3>Read Chapter 1 &amp; The LuminaHome Case Study</h3>
+        <div class="file-pill">tier0-free-sample-chapter01-and-audit.pdf (34 Pages)</div>
+        <p>Read Chapter 1 to see why a store generating $42,000/month at a 2.1x platform ROAS was silently losing -$3,180/month—and how replacing a 20% discount code with 3-tier volume bundles swung net profit to +$11,420/month.</p>
+        <div class="step-goal">Goal: Identify which of the 5 Margin Leaks is currently draining your store's bank balance.</div>
+      </div>
+
+      <div class="step-card step-3">
+        <div class="step-header">
+          <span class="step-badge">STEP 03 • INTERACTIVE AUDIT</span>
+          <span class="step-time">Minutes 20–25 (5 Mins)</span>
+        </div>
+        <h3>Run Your SKU Numbers in the Offline Web App</h3>
+        <div class="file-pill">ecommerce-os-app.html (or sheet1-unit-economics...csv)</div>
+        <p>Double-click <strong>ecommerce-os-app.html</strong> to open the companion app in any browser (works 100% offline). Enter your retail price, product cost, 3PL shipping, and ad CPA in Module 1, then test Prompts 1.1–1.5 in Module 2.</p>
+        <div class="step-goal">Goal: Calculate your exact Break-Even ROAS and Pre-Ad Contribution Margin (%) in 60 seconds.</div>
+      </div>
+
+      <div class="step-card step-4">
+        <div class="step-header">
+          <span class="step-badge">STEP 04 • 72-HOUR ACTION PLAN</span>
+          <span class="step-time">Minutes 25–30 (5 Mins)</span>
+        </div>
+        <h3>Complete Your Fillable Chapter 1 Action Workbook</h3>
+        <div class="file-pill">chapter-01-workbook.pdf (6 Pages, Fillable PDF)</div>
+        <p>Open the interactive workbook right on your computer (or print it). Fill in your 3-SKU Margin Audit Table, flag any SKU with a Break-Even ROAS above 2.10x, and check off your 7-day execution boxes.</p>
+        <div class="step-goal">Goal: Lock in your 72-Hour Margin Rescue changes before spending another dollar on ads.</div>
+      </div>
+    </div>
+
+    <div class="section-title">2. Three Core Equations to Check in Step 3</div>
+    <div class="formula-strip">
+      <div class="formula-box">
+        <div class="f-lbl">Equation 01 • Pre-Ad Margin</div>
+        <div class="f-eq">Net AOV - Landed COGS - 3PL/Fees</div>
+        <div class="f-target">Target Floor: &gt;= 60% of Net AOV</div>
+      </div>
+      <div class="formula-box">
+        <div class="f-lbl">Equation 02 • Break-Even ROAS</div>
+        <div class="f-eq">Net AOV / Pre-Ad Margin ($)</div>
+        <div class="f-target">Healthy Target: &lt;= 1.65x ROAS</div>
+      </div>
+      <div class="formula-box">
+        <div class="f-lbl">Equation 03 • Max Allowable CPA</div>
+        <div class="f-eq">Pre-Ad Margin ($) - Target Profit ($)</div>
+        <div class="f-target">Scale Gate: Actual CPA &lt; Max CPA</div>
+      </div>
+    </div>
+
+    <div class="section-title">3. Complete Directory of Files in This Starter Package</div>
+    <table class="file-table">
+      <thead>
+        <tr>
+          <th>Order</th>
+          <th>File Name</th>
+          <th>Type</th>
+          <th>How to Use It</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>01</strong></td>
+          <td><code>00-START-HERE-READING-GUIDE.pdf</code> / <code>.html</code></td>
+          <td>Visual Guide (2p)</td>
+          <td>Read this roadmap first so you know the exact 4-step order.</td>
+        </tr>
+        <tr>
+          <td><strong>02</strong></td>
+          <td><code>00-ECOSYSTEM-MASTER-MAP-POSTER.png</code></td>
+          <td>HD Poster</td>
+          <td>View or print the 5-Stage Store Profit Engine architecture map.</td>
+        </tr>
+        <tr>
+          <td><strong>03</strong></td>
+          <td><code>cheat-sheet-ch01.png</code></td>
+          <td>HD Cheat Sheet</td>
+          <td>Keep next to your monitor for instant unit-economics formula reference.</td>
+        </tr>
+        <tr>
+          <td><strong>04</strong></td>
+          <td><code>tier0-free-sample-chapter01-and-audit.pdf</code></td>
+          <td>Book Sample (34p)</td>
+          <td>Read Full Chapter 1 + 5 AI Prompts + LuminaHome Case Study.</td>
+        </tr>
+        <tr>
+          <td><strong>05</strong></td>
+          <td><code>ecommerce-os-app.html</code></td>
+          <td>Offline Web App</td>
+          <td>Double-click to open in any browser; run Module 1 &amp; Chapter 1 Prompts.</td>
+        </tr>
+        <tr>
+          <td><strong>06</strong></td>
+          <td><code>sheet1-unit-economics-and-roas-calculator.csv</code></td>
+          <td>Excel / Sheets CSV</td>
+          <td>Open in Excel or Google Sheets for spreadsheet-based SKU modeling.</td>
+        </tr>
+        <tr>
+          <td><strong>07</strong></td>
+          <td><code>chapter-01-workbook.pdf</code></td>
+          <td>Fillable PDF (6p)</td>
+          <td>Type directly into the form fields to complete your 7-day store audit.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="footer-note">
+      <div>
+        <strong>Want to activate all 10 Chapters, 62 AI Prompts/Scripts, 8-Tab Excel Matrix &amp; Full Pro App Mode?</strong><br/>
+        Upgrade to <strong>Tier 2 ($59)</strong> or <strong>Tier 3 Complete Enterprise Suite ($99)</strong> to receive the full 259-page book, 10 workbooks, 7 Word SOPs, 3 slide decks, and your <code>PRO-ACCESS-LICENSE-KEY.txt</code> activation code.
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
